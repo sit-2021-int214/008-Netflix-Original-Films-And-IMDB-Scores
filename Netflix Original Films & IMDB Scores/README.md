@@ -1,15 +1,14 @@
-# GroupID-Datasetname
+# 008-Netflix Original Films & IMDB Scores
 
-Original Datasets from: [safe-sit23 github](https://github.com/safesit23/INT214-Statistics/blob/main/datasets/products_original.csv)
+Original Datasets from: [Netflix Original Films & IMDB Scores](https://www.kaggle.com/luiscorter/netflix-original-films-imdb-scores)
 
 ### About's Products Datasets
 
-This dataset is about's sample uniqlo product that sell in 2021. It includes productID, name of products, type of products, price of products, and number of sold.
+This dataset consists of all Netflix original films released as of June 1st, 2021. Additionally, it also includes all Netflix documentaries and specials. The data was webscraped off of this Wikipedia page, which was then integrated with a dataset consisting of all of their corresponding IMDB scores. IMDB scores are voted on by community members, and the majority of the films have 1,000+ reviews.
 
 ## Overview
 
-// Write Statement here
-E.g. กลุ่มของเราเลือกชุดข้อมูลนี้เพราะต้องการศึกษา.....
+Netflix เป็น Platform ดูหนังที่มีจำนวนผู้ใช้งานติดอันดับต้น ๆ ของประเทศไทย และอันดับต้น ๆ ของโลก โดย Netflix มีหนังที่เข้าฉายในเฉพาะ Platform ของตัวเองจึงทำให้เป็นที่นิยม และเป็นที่จับตามองของนักรีวิวต่าง ๆ และเว็บไซต์จัดอันดับที่มีอิทธิพลมากที่สุดส่งผลต่อการเลือกดูหนัง ซึ่งเปิดให้คนจากทั่วโลกเข้ามาให้คะแนนหนังที่ดูจบไปแล้ว รวมทั้งร่วมวิจารณ์บนเว็บไซต์ได้เลย นั่นก็คือ IMDB ด้วยเหตุผลเหล่านี้ พวกเราจึงอยากรู้ว่าหนังเรื่องใดใน Netflix ที่ถูกให้คะแนนมากที่สุดจากเว็บไซต์จัดอันดับนี้ รวมไปถึงอยากรู้ว่า Netflix มีหนังประเภทใดมากที่สุด ช่วงเวลาไหนที่มีการปล่อยภาพยนตร์ออกมามากที่สุดในแต่ละปี และความยาวของหนังจะส่งผลต่อการให้คะแนนของหนังหรือไม่
 
 ### Steps
 
@@ -23,16 +22,16 @@ E.g. กลุ่มของเราเลือกชุดข้อมูล
 
 ## Table of Contents
 
-1. [Exploratory Data Analysis](./01_explore.md)
-2. [Data Visualization]()
+1. [Exploratory Data Analysis](./)
+2. [Data Visualization](./)
 
 ## Resources
 
 ### Important Files in Repository
 
-- [code_eda.R](./code_eda.R) : Exploratory Data Analysis
-- [products_original.csv](./products_original.csv): Original Dataset
-- [products_clean.csv](./products_original.csv): Clean Dataset
+- [code_eda.R](./) : Exploratory Data Analysis
+- [products_original.csv](./NetflixOriginals.csv): Original Dataset
+- [products_clean.csv](./): Clean Dataset
 
 ### References
 
