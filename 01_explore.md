@@ -15,7 +15,7 @@ Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 3. Netflix Original Films ของแต่ละภาษามีกี่เรื่อง
 4. ค่าเฉลี่ย Runtime ของ Netflix Original Films ทั้งหมด
 5. คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
-6. Netflix Original Films มีหนังประเภทใดมากที่สุด
+6. Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 
 ## Step 0 Loading library and dataset
 
@@ -117,9 +117,15 @@ Result
 ```
 
 ## 6.
-Explain
+Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 ```R
+quantityGenre <- Movies %>% count(Genre)
+as_tibble(quantityGenre)
+quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
 ```
 Result
 ```
+Genre           n
+  <chr>       <int>
+1 Documentary   159
 ```
