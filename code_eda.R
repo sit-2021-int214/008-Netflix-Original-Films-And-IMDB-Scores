@@ -11,10 +11,8 @@ Netflix_IMDB <- read_csv("https://raw.githubusercontent.com/sit-2021-int214/008-
 Netflix_IMDB <- as_tibble(Netflix_IMDB)
 glimpse(Netflix_IMDB)
 
-# Step 3: TransformData
 
-
-# Cleaning Data
+# Step 3: Cleaning Data
 Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
 Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
 
@@ -43,6 +41,6 @@ distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
 # 6
-quantityGenre <- Netflix_IMDB %>% count(Genre)
+quantityGenre <- Movies %>% count(Genre)
 as_tibble(quantityGenre)
-max(quantityGenre)
+quantityGenre <- quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
