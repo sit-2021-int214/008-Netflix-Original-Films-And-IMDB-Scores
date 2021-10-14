@@ -43,4 +43,7 @@ as_tibble(distanceneIMDB)
 # 6
 quantityGenre <- Movies %>% count(Genre)
 as_tibble(quantityGenre)
-quantityGenre <- quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
+quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
+
+##Checkpoint 1
+write.csv(Netflix_IMDB,"c:/Users/Admin/Desktop/int214/008-Netflix-Original-Films-And-IMDB-Scores/Netflix_IMDB_Clean.csv",row.names=FALSE)
