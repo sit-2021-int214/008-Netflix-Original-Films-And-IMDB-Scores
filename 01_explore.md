@@ -4,9 +4,12 @@ Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 
 
 ### My Step
-1. Define a questionCancel changes
-2. Loading Library and dataset
-3. xxxxxxx
+1. Define a question
+2. Search datasets from Kaggle
+3. Download Library and dataset
+4. Explore the dataset from the original dataset
+5. Cleaning Dataset
+6. Exploratory Data Analysis
 
 ## Define a question
 
@@ -17,12 +20,32 @@ Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 5. คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
 6. Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 
-## Step 0 Loading library and dataset
+## Loading library and dataset
 
 ```R
+#library
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(assertive)
+library(readr)
 
+#DataSet
+Netflix_IMDB <- read_csv("https://raw.githubusercontent.com/sit-2021-int214/008-Netflix-Original-Films-And-IMDB-Scores/main/NetflixOriginals.csv")
 ```
+## Change to tibble
+```R
+Netflix_IMDB <- as_tibble(Netflix_IMDB)
+glimpse(Netflix_IMDB)
+```
+## Cleaning Data
 
+```R
+Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
+
+Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
+Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
+```
 ## 1.
 
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
