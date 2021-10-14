@@ -13,7 +13,11 @@ Netflix เป็น Platform ดูหนังที่มีจำนวน�
 ### Steps
 
 1. Define a question
-2. Observe...
+2. Search datasets from Kaggle
+3. Download Library and dataset
+4. Explore the dataset from the original dataset
+5. Cleaning Dataset
+6. Exploratory Data Analysis
 
 ### Tools
 
@@ -31,7 +35,7 @@ Netflix เป็น Platform ดูหนังที่มีจำนวน�
 
 - [code_eda.R](./code_eda.R) : Exploratory Data Analysis
 - [products_original.csv](./NetflixOriginals.csv): Original Dataset
-- [products_clean.csv](./): Clean Dataset
+- [products_clean.csv](./Netflix_IMDB_Clean.csv): Clean Dataset
 
 ### References
 
