@@ -22,14 +22,14 @@ Netflix เป็น Platform ดูหนังที่มีจำนวน�
 
 ## Table of Contents
 
-1. [Exploratory Data Analysis](./)
+1. [Exploratory Data Analysis](./01_explore.md)
 2. [Data Visualization](./)
 
 ## Resources
 
 ### Important Files in Repository
 
-- [code_eda.R](./) : Exploratory Data Analysis
+- [code_eda.R](./code_eda.R) : Exploratory Data Analysis
 - [products_original.csv](./NetflixOriginals.csv): Original Dataset
 - [products_clean.csv](./): Clean Dataset
 
