@@ -33,7 +33,7 @@ Netflix_maxIMDB <- Netflix_IMDB %>% filter(`IMDB Score` == max(`IMDB Score`));
 
 Result
 
-```R
+```
 Title                                    Genre       Premiere        Runtime `IMDB Score` Language
   <chr>                                    <chr>       <chr>             <dbl>        <dbl> <chr>   
 1 David Attenborough: A Life on Our Planet Documentary October 4, 2020      83            9 English 
