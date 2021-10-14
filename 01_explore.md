@@ -1,4 +1,4 @@
-# Pokémon Index Dataset
+# Netflix Original Films & IMDB Scores Dataset
 
 Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 
