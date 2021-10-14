@@ -14,8 +14,8 @@ glimpse(Netflix_IMDB)
 
 # Step 3: Cleaning Data
 Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
-Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
 
+Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
 Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 
 # 1 
@@ -44,6 +44,9 @@ as_tibble(distanceneIMDB)
 quantityGenre <- Movies %>% count(Genre)
 as_tibble(quantityGenre)
 quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
+
+# 7 
+
 
 ##Checkpoint 1
 write.csv(Netflix_IMDB,"c:/Users/Admin/Desktop/int214/008-Netflix-Original-Films-And-IMDB-Scores/Netflix_IMDB_Clean.csv",row.names=FALSE)
