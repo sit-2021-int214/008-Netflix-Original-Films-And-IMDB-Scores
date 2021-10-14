@@ -10,77 +10,115 @@ Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 
 ## Define a question
 
-1. 
-2. 
-3. 
-4. 
-5. 
-6. 
+1. Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
+2. คะแนน IMDB เฉลี่ยของ Netflix Original Films แต่ละประเภท
+3. Netflix Original Films ของแต่ละภาษามีกี่เรื่อง
+4. ค่าเฉลี่ย Runtime ของ Netflix Original Films ทั้งหมด
+5. คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
+6. Netflix Original Films มีหนังประเภทใดมากที่สุด
 
 ## Step 0 Loading library and dataset
 
-```
+```R
 
 ```
 
 ## 1.
 
-Explain here
+Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 
-```
-
+```R
+Netflix_maxIMDB <- Netflix_IMDB %>% filter(`IMDB Score` == max(`IMDB Score`));
 ```
 
 Result
 
-```
-
+```R
+Title                                    Genre       Premiere        Runtime `IMDB Score` Language
+  <chr>                                    <chr>       <chr>             <dbl>        <dbl> <chr>   
+1 David Attenborough: A Life on Our Planet Documentary October 4, 2020      83            9 English 
 ```
 
 
 ## 2.
 
-Explain here
-```
+คะแนน IMDB เฉลี่ยของหนังแต่ละประเภท
 
+```R
+GenreIMDBmean <- Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(`IMDB Score`), list(meanIMDB = mean))
 ```
 Result
 ```
-
+   Genre                  meanIMDB
+   <chr>                     <dbl>
+ 1 Action                     5.41
+ 2 Action-adventure           7.3 
+ 3 Action-thriller            6.13
+ 4 Action comedy              5.42
+ 5 Action thriller            6.4 
+ 6 Action/Comedy              5.4 
+ 7 Action/Science fiction     5.4 
+ 8 Adventure                  6.3 
+ 9 Adventure-romance          6.1 
+10 Adventure/Comedy           5.5 
+# ... with 105 more rows
 ```
 
 
 ## 3. 
 
-Explain here
-```
+หนังของแต่ละภาษามีกี่เรื่อง
 
+```R
+movie_language <- Netflix_IMDB %>%count(Language) 
 ```
 Result
 ```
-
+   Language             n
+   <chr>            <int>
+ 1 Bengali              1
+ 2 Dutch                3
+ 3 English            401
+ 4 English/Akan         1
+ 5 English/Arabic       1
+ 6 English/Hindi        2
+ 7 English/Japanese     2
+ 8 English/Korean       1
+ 9 English/Mandarin     2
+10 English/Russian      1
+# ... with 28 more rows
 ```
 
 ## 4.
-Explain
-```
+ค่าเฉลี่ย Runtime ของหนังทั้งหมด
+```R
+meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
 ```
 Result
 ```
+  Netflix_IMDB.Runtime.....mean..
+                            <dbl>
+1                            93.6
 ```
 
 ## 5. 
-Explain
-```
+คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
+
+```R
+Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == min(Netflix_IMDB$IMDB_Score)) 
+Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == max(Netflix_IMDB$IMDB_Score))
+max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 ```
 Result
 ```
-
+  value
+  <dbl>
+1   6.5
 ```
 
 ## 6.
 Explain
-```
+```R
 ```
 Result
 ```
