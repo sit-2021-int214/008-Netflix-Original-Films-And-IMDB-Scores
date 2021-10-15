@@ -41,7 +41,7 @@ distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
 # 6
-quantityGenre <- Movies %>% count(Genre)
+quantityGenre <- Netflix_IMDB %>% count(Genre)
 as_tibble(quantityGenre)
 quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
 
