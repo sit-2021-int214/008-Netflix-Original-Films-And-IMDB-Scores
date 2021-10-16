@@ -14,8 +14,11 @@ glimpse(Netflix_IMDB)
 
 # Step 3: Cleaning Data
 Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
-
 Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
+Netflix_IMDB$Genre <- gsub('Science fiction','Science',Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Heist film','Heist',Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Family film','Family' ,Netflix_IMDB$Genre)
+
 Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 
 # 1 
@@ -41,11 +44,27 @@ distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
 # 6
-quantityGenre <- Netflix_IMDB %>% count(Genre)
-quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
+Netflix <- Netflix_IMDB %>% mutate(
+  movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
+  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
+)
+View(Netflix)
 
-# 7 
+Netflix2 <- Netflix %>% mutate(
+  NetflixGenre = strsplit(as.character(Netflix$movieGenre),"/"),
+  NetflixGenre = lapply(NetflixGenre, gsub, pattern = " ", replacement = "")
+)
 
+View(Netflix2)
+
+FinalNetflix <- Netflix2 %>% mutate(
+  Netflix_Genre = strsplit(as.character(Netflix2$NetflixGenre),"-"),
+  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = "")
+)
+View(FinalNetflix)
+
+FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>% 
+  count(Netflix_Genre)%>% arrange(desc(n))%>% View()
 
 ##Checkpoint 1
-write.csv(Netflix_IMDB,"c:/Users/Admin/Desktop/int214/008-Netflix-Original-Films-And-IMDB-Scores/Netflix_IMDB_Clean.csv",row.names=FALSE)
+write.csv(Netflix_IMDB,"C:\\Users\\USER\\Desktop\\R-214\\Netflix_IMDB_Clean.csv",row.names=FALSE)
