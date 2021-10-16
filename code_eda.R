@@ -42,7 +42,6 @@ as_tibble(distanceneIMDB)
 
 # 6
 quantityGenre <- Netflix_IMDB %>% count(Genre)
-as_tibble(quantityGenre)
 quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
 
 # 7 
