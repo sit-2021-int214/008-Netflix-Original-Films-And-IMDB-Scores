@@ -67,4 +67,4 @@ FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>%
   count(Netflix_Genre)%>% arrange(desc(n))%>% View()
 
 ##Checkpoint 1
-write.csv(Netflix_IMDB,"C:\\Users\\USER\\Desktop\\R-214\\Netflix_IMDB_Clean.csv",row.names=FALSE)
+write.csv(Netflix_IMDB,"C:\\Users\\USER\\Desktop\\008-Netflix-Original-Films-And-IMDB-Scores\\Netflix_IMDB_Clean.csv",row.names=FALSE)
