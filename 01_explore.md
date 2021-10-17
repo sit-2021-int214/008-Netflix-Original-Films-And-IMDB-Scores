@@ -51,7 +51,7 @@ Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 
 ```R
-Netflix_maxIMDB <- Netflix_IMDB %>% filter(`IMDB Score` == max(`IMDB Score`));
+Netflix_maxIMDB <- Netflix_IMDB %>% filter(IMDB_Score == max(IMDB_Score));
 ```
 
 Result
