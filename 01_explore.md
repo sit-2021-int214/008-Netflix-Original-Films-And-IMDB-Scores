@@ -142,8 +142,28 @@ Result
 ## 6.
 Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 ```R
-quantityGenre <- Netflix_IMDB %>% count(Genre)
-quantityGenre %>% select(Genre,n) %>% filter(n == max(n))
+Netflix <- Netflix_IMDB %>% mutate(
+  movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
+  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
+)
+View(Netflix)
+
+Netflix2 <- Netflix %>% mutate(
+  NetflixGenre = strsplit(as.character(Netflix$movieGenre),"/"),
+  NetflixGenre = lapply(NetflixGenre, gsub, pattern = " ", replacement = "")
+)
+
+View(Netflix2)
+
+FinalNetflix <- Netflix2 %>% mutate(
+  Netflix_Genre = strsplit(as.character(Netflix2$NetflixGenre),"-"),
+  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = "")
+)
+View(FinalNetflix)
+
+FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>% 
+  count(Netflix_Genre)%>% arrange(desc(n))%>% View()
+
 ```
 Result
 ```
