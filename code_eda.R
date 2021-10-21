@@ -59,7 +59,8 @@ View(Netflix2)
 
 FinalNetflix <- Netflix2 %>% mutate(
   Netflix_Genre = strsplit(as.character(Netflix2$NetflixGenre),"-"),
-  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = "")
+  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = ""),
+  Netflix_Genre = lapply(Netflix_Genre, tolower)
 )
 View(FinalNetflix)
 
