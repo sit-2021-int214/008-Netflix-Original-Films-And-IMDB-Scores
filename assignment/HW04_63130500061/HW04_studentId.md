@@ -188,7 +188,7 @@ Result:
 
 ## Part 4: Visualization with GGplot2
 ### 1.) Graph show relation between Region and Sales
-```
+```R
 
 Region_plot <- ggplot(Superstore_Sales, aes(x= Region)) + geom_bar(); 
 
@@ -200,7 +200,7 @@ Result:
 ![Graph 1](RegionPlot.png)
 
 ### 1.) Graph show relation between Sales and Category
-```
+```R
 
 Country_plot <- ggplot(Superstore_Sales, aes(x = Sales, y = Category))+
                 geom_bar(stat="identity")+
