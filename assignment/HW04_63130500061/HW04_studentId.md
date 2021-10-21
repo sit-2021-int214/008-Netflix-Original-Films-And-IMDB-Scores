@@ -187,16 +187,32 @@ Result:
 ได้ยอดขายทั้งหมด 2261537 
 
 ## Part 4: Visualization with GGplot2
-### 1.) Graph show relation between height and mass
+### 1.) Graph show relation between Region and Sales
 ```
-scat_plot <- starwars %>% filter(mass<500) %>% ggplot(aes(x=height,y=mass))+
-  geom_point(aes(color=gender))
 
-scat_plot+geom_smooth()
+Region_plot <- ggplot(Superstore_Sales, aes(x= Region)) + geom_bar(); 
+
+Region_plot + ggtitle("Number of Sales Region") +
+              xlab("Region") + ylab("Sales")
 ```
 Result:
 
-![Graph 1](graph1.png)
+![Graph 1](RegionPlot.png)
+
+### 1.) Graph show relation between Sales and Category
+```
+
+Country_plot <- ggplot(Superstore_Sales, aes(x = Sales, y = Category))+
+                geom_bar(stat="identity")+
+                scale_x_continuous(breaks=c(50000 ,250000 ,450000 ,650000 ,850000))
+
+Country_plot + ggtitle("Total of Sales Category") +
+              xlab("Category") + ylab("Total Sales")
+```
+Result:
+
+![Graph 2](CountryPlot.png)
+
 
 **Guideline:
 Embed Image by using this syntax in markdown file
