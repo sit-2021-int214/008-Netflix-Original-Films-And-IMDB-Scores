@@ -207,7 +207,7 @@ Country_plot <- ggplot(Superstore_Sales, aes(x = Sales, y = Category))+
                 scale_x_continuous(breaks=c(50000 ,250000 ,450000 ,650000 ,850000))
 
 Country_plot + ggtitle("Total of Sales Category") +
-              xlab("Category") + ylab("Total Sales")
+               xlab("Category") + ylab("Total Sales")
 ```
 Result:
 
