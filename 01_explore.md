@@ -181,5 +181,5 @@ Genre           n
   <chr>       <int>
 1 Documentary   159
 
-![Caption](image1.png)
+![view](image/image6.png)
 ```
