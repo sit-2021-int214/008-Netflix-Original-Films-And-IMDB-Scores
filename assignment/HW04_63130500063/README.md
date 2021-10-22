@@ -28,24 +28,25 @@ library(ggplot2)
 superstore <- read.csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv")
 View(superstore)
 
-In this dataset has 
-order id,
-order date,
-shipment date ,
-shipment mode,
-customer id,
-customer name,
-segment,
-country,
-city,
-state,
-postal code,
-region,
-category,
-sub category,
-product id,
-product name,
-sales
+ใน dataset นี้มีข้อมูลดังนี้
+Row ID = ลำดับข้อมูลในdatasetนี้       
+Order ID = IDของออเดอร์       
+Order Date = วันที่ที่ทำการสั่งสิ้นค้า      
+Ship Date = วันที่ที่ทำการจัดส่ง      
+Ship Mode = รูปแบบการขนส่ง      
+Customer ID = IDของลูกค้า     
+Customer Name = ชื่อลูกค้า  
+Segment = บอกประเภทกลุ่มของลูกค้า        
+Country = ประเทศที่ลูกค้าต้องการให้ทำการจัดส่ง        
+City = เมืองที่ลูกค้าต้องการให้ทำการจัดส่ง          
+State = รัฐที่ลูกค้าต้องการให้ทำการจัดส่ง          
+Postal Code = รหัสไปรษณีย์ของที่อยู่นั้นๆ    
+Region = บอกว่าที่อยู่นั้นๆอยู่ในบีิเวณภาคใด      
+Product ID = IDของสินค้า     
+Category = หมวดหมู่ของสินค้า      
+Sub Category = หมวดหมู่ย่อยของสินค้า
+Product Name = ชื่อสินค้า
+Sales = ราคาของสินค้า        
 ```
 
 ใข้ glimps() เพื่อดูข้อมูลทั้งหมดและชนิดของข้อมูลนั้น
