@@ -6,22 +6,23 @@ Choose Dataset:
 
 2. Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/rohitsahoo/sales-forecasting)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv)
 
+### What you need to do:
 
-### Outlines
-1. Explore the dataset
-2. Learning function from Tidyverse
-3. Transform data with dplyr and finding insight the data
-4. Visualization with GGplot2
+1. Explore the dataset that you have select.
+2. Transform data with dplyr and finding insight the dataat least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
+3. Using ggplot2 to create 2 graphs and explain each graph.
+4. In this part, you need to using command from tidyverse (e.g. lubridate, stringr, forcats) that not learned in class and explain this command how to used it. If you can't implement to this dataset, you can select one command and show example how to used it.
+5. Do in Markdown File (md or Rmd) and push into your folder in Team Repository. (Same as Workshop I)
+6. Copy link to access this folder and paste into PDF file Part A
 
-## Part 1: Explore the dataset that you have select.
-
+## Step 1: Explore the dataset that you have select.
+```
 #library
 library(dplyr)
 library(readr)      
 library(stringr)    
 library(assertive)
 library(ggplot2)
-
 
 #dataset
 superstore <- read.csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv")
@@ -45,6 +46,8 @@ sub category,
 product id,
 product name,
 sales
+```
+
 > glimpse(superstore)
 
 Output :
@@ -71,14 +74,14 @@ $ Product.Name  <chr> "Bush Somerset Collection Bookcase", "Hon Deluxe Fabric Up
 $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7.2800, 907.1520, 18.5040, 114.9000, 170~
 ```
 
-## Part 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
+## Step 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 
 - Function select() from package [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html#select-columns-with-select)). It using for select columns
 
 starwars %>% select(name,height)
 ** You can sepearate this part or combine in part of Transform data with dplyr and finding insight the data
 
-## Part 3: Using ggplot2 to create 2 graphs and explain each graph.
+## Step 3: Using ggplot2 to create 2 graphs and explain each graph.
 
 //Explain here
 
@@ -92,7 +95,7 @@ Result:
 - list 1
 - list 2
 
-## Part 4: Using command from tidyverse(forcats)
+## Step 4: Using command from tidyverse(forcats)
 ### 1.) Graph show relation between height and mass
 scat_plot <- starwars %>% filter(mass<500) %>% ggplot(aes(x=height,y=mass))+
   geom_point(aes(color=gender))
