@@ -1,8 +1,8 @@
 ## R-Assignment 4
 
-## Created by Napasorn Patanadecha (ID: 63130500063)
+Created by Napasorn Patanadecha (ID: 63130500063)
 
-Choose Dataset:
+## Choose Dataset:
 
 2. Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/rohitsahoo/sales-forecasting)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv)
 
