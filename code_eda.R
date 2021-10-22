@@ -5,7 +5,8 @@ library(assertive)
 library(readr)
 
 # Step 1: Load data
-Netflix_IMDB <- read_csv("https://raw.githubusercontent.com/sit-2021-int214/008-Netflix-Original-Films-And-IMDB-Scores/main/NetflixOriginals.csv")
+Netflix_IMDB <- 
+read_csv("https://raw.githubusercontent.com/sit-2021-int214/008-Netflix-Original-Films-And-IMDB-Scores/main/NetflixOriginals.csv")
 
 # Step 2: Change to tibble
 Netflix_IMDB <- as_tibble(Netflix_IMDB)
@@ -37,7 +38,9 @@ Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% select(Title,IMDB_Score) %>% filt
 as_tibble(Netflix_maxIMDB)
 
 # 2
-Clean_Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Clean_Netflix_IMDB$IMDB_Score))
+language <- Clean_Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
+count(CleanLanguage)%>% arrange(desc(n)) %>% slice(1:5)
+as_tibble(language)
 
 # 3
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
@@ -51,13 +54,12 @@ as_tibble(distanceneIMDB)
 
 # 5 
 countGenre <- Clean_Netflix_IMDB %>% select(CleanGenre) %>% unnest(CleanGenre)%>% 
-  count(CleanGenre)%>% arrange(desc(n)) %>% slice(1:1)
+count(CleanGenre)%>% arrange(desc(n)) %>% slice(1:1)
 as_tibble(countGenre)
 
 # 6
-language <- Clean_Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
-  count(CleanLanguage)%>% arrange(desc(n)) %>% slice(1:5)
-as_tibble(language)
+Clean_Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Clean_Netflix_IMDB$IMDB_Score))
+
 
 ##Checkpoint 1
 write.csv(Netflix_IMDB,"Netflix_IMDB_Clean.csv",row.names=FALSE)
