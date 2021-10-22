@@ -1,12 +1,12 @@
-#R-Assignment 4
+## R-Assignment 4
 
-**Created by Napasorn Patanadecha (ID: 63130500063)**
+## Created by Napasorn Patanadecha (ID: 63130500063)
 
 Choose Dataset:
 
 2. Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/rohitsahoo/sales-forecasting)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv)
 
-### What you need to do:
+## What you need to do:
 
 1. Explore the dataset that you have select.
 2. Transform data with dplyr and finding insight the dataat least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
