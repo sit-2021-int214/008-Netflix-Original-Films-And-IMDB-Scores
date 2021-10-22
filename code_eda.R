@@ -39,6 +39,7 @@ language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>%
   count(NFlanguage)%>% arrange(desc(n)) %>% slice(1:5)
 
 View(language)
+as_tibble(language)
 
 # 4
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
