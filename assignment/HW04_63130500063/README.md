@@ -13,7 +13,7 @@ Choose Dataset:
 3. Transform data with dplyr and finding insight the data
 4. Visualization with GGplot2
 
-## Part 1: Explore the dataset
+## Part 1: Explore the dataset that you have select.
 
 #library
 library(dplyr)
@@ -70,14 +70,14 @@ $ Product.Name  <chr> "Bush Somerset Collection Bookcase", "Hon Deluxe Fabric Up
 $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7.2800, 907.1520, 18.5040, 114.9000, 170~
 ```
 
-## Part 2: Learning function from Tidyverse
+## Part 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 
 - Function select() from package [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html#select-columns-with-select)). It using for select columns
 
 starwars %>% select(name,height)
 ** You can sepearate this part or combine in part of Transform data with dplyr and finding insight the data
 
-## Part 3: Transform data with dplyr and finding insight the data
+## Part 3: Using ggplot2 to create **2 graphs** and explain each graph.
 
 //Explain here
 
@@ -91,7 +91,7 @@ Result:
 - list 1
 - list 2
 
-## Part 4: Visualization with GGplot2
+## Part 4: Using command from tidyverse(forcats)
 ### 1.) Graph show relation between height and mass
 scat_plot <- starwars %>% filter(mass<500) %>% ggplot(aes(x=height,y=mass))+
   geom_point(aes(color=gender))
