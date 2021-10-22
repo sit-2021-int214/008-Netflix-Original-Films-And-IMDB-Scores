@@ -77,7 +77,7 @@ $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7
 starwars %>% select(name,height)
 ** You can sepearate this part or combine in part of Transform data with dplyr and finding insight the data
 
-## Part 3: Using ggplot2 to create **2 graphs** and explain each graph.
+## Part 3: Using ggplot2 to create 2 graphs and explain each graph.
 
 //Explain here
 
