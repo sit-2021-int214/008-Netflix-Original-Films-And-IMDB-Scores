@@ -51,16 +51,19 @@ Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 
 ```R
-Netflix_maxIMDB <- Netflix_IMDB %>% filter(IMDB_Score == max(IMDB_Score));
+Netflix_maxIMDB <- Netflix_IMDB %>% filter(IMDB_Score == max(IMDB_Score))
+Netflix_maxIMDB
 ```
 
-Result
+Result :
 
 ```
 Title                                    Genre       Premiere        Runtime `IMDB Score` Language
   <chr>                                    <chr>       <chr>             <dbl>        <dbl> <chr>   
 1 David Attenborough: A Life on Our Planet Documentary October 4, 2020      83            9 English 
 ```
+-Summary <br>
+Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด คือเรื่อง David Attenborough: A Life on Our Planet ซึ่งมีคะแนนใน IMDB สูงถึง 9 คะแนน 
 
 
 ## Question 2
@@ -68,9 +71,10 @@ Title                                    Genre       Premiere        Runtime `IM
 คะแนน IMDB เฉลี่ยของหนังแต่ละประเภท
 
 ```R
-GenreIMDBmean <- Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(`IMDB Score`), list(meanIMDB = mean))
+GenreIMDBmean <- Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(IMDB_Score), list(meanIMDB = mean))
+GenreIMDBmean
 ```
-Result
+Result :
 ```
    Genre                  meanIMDB
    <chr>                     <dbl>
@@ -101,7 +105,7 @@ movie_language <- Netflix_IMDB %>% mutate(
 language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>% 
   count(NFlanguage)%>% arrange(desc(n))
 ```
-Result
+Result :
 ```
    NFlanguage     n
    <chr>      <int>
@@ -123,7 +127,7 @@ Result
 ```R
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
 ```
-Result
+Result :
 ```
   Netflix_IMDB.Runtime.....mean..
                             <dbl>
@@ -138,7 +142,7 @@ Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == 
 Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == max(Netflix_IMDB$IMDB_Score))
 max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 ```
-Result
+Result :
 ```
   value
   <dbl>
@@ -171,9 +175,11 @@ FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>%
   count(Netflix_Genre)%>% arrange(desc(n))%>% View()
 
 ```
-Result
+Result :
 ```
 Genre           n
   <chr>       <int>
 1 Documentary   159
+
+![Caption](image1.png)
 ```
