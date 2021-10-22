@@ -95,6 +95,12 @@ Result :
 4 French           21
 5 Italian          14
 ```
+Top5 จำนวน Netflix Original Films ของแต่ละภาษา 
+อันดับ 1 English         422 เรื่อง
+อันดับ 2 Spanish          39 เรื่อง
+อันดับ 3 Hindi            35 เรื่อง
+อันดับ 4 French           21 เรื่อง
+อันดับ 5 Italian          14 เรื่อง
 
 ## Question 3
 
@@ -123,6 +129,7 @@ Result :
   <dbl>
 1   6.56
 ```
+คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่ 6.56 คะแนน 
 
 ## Question 5 
 Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
@@ -136,6 +143,7 @@ Result :
   <chr>       <int>
 1 documentary   159
 ```
+Netflix Original Films มีหนังประเภท documentary มากที่สุด และมีจำนวน 159 เรื่อง
 
 ## Question 6
 Netflix Original Films ประเภท documentary มีคะแนน IMDB เฉลี่ยอยู่ที่เท่าไหร่
@@ -148,4 +156,5 @@ Result :
                                   <dbl>
 1                                  6.27
 ```
+Netflix Original Films ประเภท documentary มีคะแนน IMDB เฉลี่ยอยู่ที่ 6.27 คะแนน
 
