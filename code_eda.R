@@ -36,7 +36,7 @@ movie_language <- Netflix_IMDB %>% mutate(
 )
 
 language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>% 
-  count(NFlanguage)%>% arrange(desc(n))
+  count(NFlanguage)%>% arrange(desc(n)) %>% slice(1:5)
 
 View(language)
 
@@ -53,7 +53,7 @@ as_tibble(distanceneIMDB)
 # 6 
 Netflix <- Netflix_IMDB %>% mutate(
   movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
-  movieGenre = lapply(movieGenre, gsub, pattern = "-", replacement = "/")
+  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
 )
 View(Netflix)
 
