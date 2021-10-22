@@ -76,6 +76,7 @@ $ Sub.Category  <chr> "Bookcases", "Chairs", "Labels", "Tables", "Storage", "Fur
 $ Product.Name  <chr> "Bush Somerset Collection Bookcase", "Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Back~
 $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7.2800, 907.1520, 18.5040, 114.9000, 170~
 ```
+ซึ่งในข้อมูลชุดนี้มี Rows จำนวน 9,800 และColumns จำนวน 18
 
 ## Step 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 
