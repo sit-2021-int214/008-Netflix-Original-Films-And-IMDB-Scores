@@ -15,10 +15,10 @@ Dataset from [Netflix Original Films & IMDB Scores](./NetflixOriginals.csv)
 
 1. Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 2. คะแนน IMDB เฉลี่ยของ Netflix Original Films แต่ละประเภท
-3. Netflix Original Films ของแต่ละภาษามีกี่เรื่อง
-4. ค่าเฉลี่ย Runtime ของ Netflix Original Films ทั้งหมด
-5. คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
-6. Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
+3. Top5 จำนวน Netflix Original Films ของแต่ละภาษา 
+4. คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
+5. Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
+6. Netflix Original Films ประเภท documentary มีคะแนน IMDB เฉลี่ยอยู่ที่เท่าไหร่
 
 ## Loading library and dataset
 
@@ -41,9 +41,24 @@ glimpse(Netflix_IMDB)
 ## Cleaning Data
 
 ```R
-Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
-
 Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
+Netflix_IMDB$Genre <- gsub('Science fiction','Science',Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Heist film','Heist',Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Family film','Family' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Romance','Romantic' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Sports film','Sports' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Concert film','Concert' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Making-of','MakingOf' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Coming-of-age','ComingOfAge comedy-drama' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('One-man show','OneMan show' ,Netflix_IMDB$Genre)
+Netflix_IMDB <- Netflix_IMDB %>% mutate(
+  CleanGenre = strsplit(as.character(Netflix_IMDB$Genre)," |/|-"),
+  CleanGenre = lapply(CleanGenre, gsub, pattern = " ", replacement = ""),
+  CleanGenre = lapply(CleanGenre, tolower),
+  CleanLanguage = strsplit(as.character(Netflix_IMDB$Language),"/"),
+  CleanLanguage = lapply(CleanLanguage, gsub, pattern = " ", replacement = "")
+)
+
 Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 ```
 ## Question 1
@@ -51,79 +66,40 @@ Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 
 ```R
-Netflix_maxIMDB <- Netflix_IMDB %>% filter(IMDB_Score == max(IMDB_Score))
-Netflix_maxIMDB
+Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(IMDB_Score == max(IMDB_Score)))
 ```
 
 Result :
 
 ```
-Title                                    Genre       Premiere        Runtime `IMDB Score` Language
-  <chr>                                    <chr>       <chr>             <dbl>        <dbl> <chr>   
-1 David Attenborough: A Life on Our Planet Documentary October 4, 2020      83            9 English 
+                                     Title IMDB_Score
+1 David Attenborough: A Life on Our Planet          9
 ```
--Summary <br>
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด คือเรื่อง David Attenborough: A Life on Our Planet ซึ่งมีคะแนนใน IMDB สูงถึง 9 คะแนน 
-
 
 ## Question 2
 
-คะแนน IMDB เฉลี่ยของหนังแต่ละประเภท
+Top5 จำนวน Netflix Original Films ของแต่ละภาษา 
 
 ```R
-GenreIMDBmean <- Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(IMDB_Score), list(meanIMDB = mean))
-GenreIMDBmean
+language <- Clean_Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
+  count(CleanLanguage)%>% arrange(desc(n)) %>% slice(1:5)
 ```
 Result :
 ```
-   Genre                  meanIMDB
-   <chr>                     <dbl>
- 1 Action                     5.41
- 2 Action-adventure           7.3 
- 3 Action-thriller            6.13
- 4 Action comedy              5.42
- 5 Action thriller            6.4 
- 6 Action/Comedy              5.4 
- 7 Action/Science fiction     5.4 
- 8 Adventure                  6.3 
- 9 Adventure-romance          6.1 
-10 Adventure/Comedy           5.5 
-# ... with 105 more rows
+  CleanLanguage     n
+  <chr>         <int>
+1 English         422
+2 Spanish          39
+3 Hindi            35
+4 French           21
+5 Italian          14
 ```
-
 
 ## Question 3
 
-หนังของแต่ละภาษามีกี่เรื่อง
+ค่าเฉลี่ย Runtime ของ Netflix Original Films ทั้งหมด
 
-```R
-movie_language <- Netflix_IMDB %>% mutate(
-  NFlanguage = strsplit(as.character(Netflix_IMDB$Language),"/"),
-  NFlanguage = lapply(NFlanguage, gsub, pattern = " ", replacement = "")
-)
-
-language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>% 
-  count(NFlanguage)%>% arrange(desc(n))
-```
-Result :
-```
-   NFlanguage     n
-   <chr>      <int>
- 1 English      422
- 2 Spanish       39
- 3 Hindi         35
- 4 French        21
- 5 Italian       14
- 6 Portuguese    12
- 7 Indonesian     9
- 8 Japanese       8
- 9 Korean         7
-10 German         5
-# ... with 22 more rows
-```
-
-## Question 4
-ค่าเฉลี่ย Runtime ของหนังทั้งหมด
 ```R
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
 ```
@@ -134,53 +110,42 @@ Result :
 1                            93.6
 ```
 
-## Question 5 
+## Question 4
 คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
-
 ```R
 Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == min(Netflix_IMDB$IMDB_Score)) 
 Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == max(Netflix_IMDB$IMDB_Score))
-max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
+distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 ```
 Result :
 ```
   value
   <dbl>
-1   6.5
+1   6.56
 ```
 
-## Question 6
+## Question 5 
 Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 ```R
-Netflix <- Netflix_IMDB %>% mutate(
-  movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
-  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
-)
-View(Netflix)
-
-Netflix2 <- Netflix %>% mutate(
-  NetflixGenre = strsplit(as.character(Netflix$movieGenre),"/"),
-  NetflixGenre = lapply(NetflixGenre, gsub, pattern = " ", replacement = "")
-)
-
-View(Netflix2)
-
-FinalNetflix <- Netflix2 %>% mutate(
-  Netflix_Genre = strsplit(as.character(Netflix2$NetflixGenre),"-"),
-  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = "")
-)
-View(FinalNetflix)
-
-FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>% 
-  count(Netflix_Genre)%>% arrange(desc(n))%>% View()
-
+countGenre <- Clean_Netflix_IMDB %>% select(CleanGenre) %>% unnest(CleanGenre)%>% 
+count(CleanGenre)%>% arrange(desc(n)) %>% slice(1:1)
 ```
 Result :
 ```
-Genre           n
+  CleanGenre      n
   <chr>       <int>
-1 Documentary   159
-
+1 documentary   159
 ```
 
-![image6](/image/image6.png)
+## Question 6
+Netflix Original Films ประเภท documentary มีคะแนน IMDB เฉลี่ยอยู่ที่เท่าไหร่
+```R
+Clean_Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Clean_Netflix_IMDB$IMDB_Score))
+```
+Result :
+```
+  `mean(Clean_Netflix_IMDB$IMDB_Score)`
+                                  <dbl>
+1                                  6.27
+```
+
