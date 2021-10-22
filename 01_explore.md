@@ -46,7 +46,7 @@ Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
 Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
 Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 ```
-## 1.
+## Question 1
 
 Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด
 
@@ -63,7 +63,7 @@ Title                                    Genre       Premiere        Runtime `IM
 ```
 
 
-## 2.
+## Question 2
 
 คะแนน IMDB เฉลี่ยของหนังแต่ละประเภท
 
@@ -88,7 +88,7 @@ Result
 ```
 
 
-## 3. 
+## Question 3
 
 หนังของแต่ละภาษามีกี่เรื่อง
 
@@ -118,7 +118,7 @@ Result
 # ... with 22 more rows
 ```
 
-## 4.
+## Question 4
 ค่าเฉลี่ย Runtime ของหนังทั้งหมด
 ```R
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
@@ -130,7 +130,7 @@ Result
 1                            93.6
 ```
 
-## 5. 
+## Question 5 
 คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
 
 ```R
@@ -145,7 +145,7 @@ Result
 1   6.5
 ```
 
-## 6.
+## Question 6
 Netflix Original Films มีหนังประเภทใดมากที่สุด และมีจำนวนเท่าไหร่
 ```R
 Netflix <- Netflix_IMDB %>% mutate(
