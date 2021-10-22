@@ -11,69 +11,53 @@ Netflix_IMDB <- read_csv("https://raw.githubusercontent.com/sit-2021-int214/008-
 Netflix_IMDB <- as_tibble(Netflix_IMDB)
 glimpse(Netflix_IMDB)
 
-
 # Step 3: Cleaning Data
-Netflix_IMDB$Title <- Netflix_IMDB$Title %>% str_remove("???")
 Netflix_IMDB <- Netflix_IMDB %>% rename(IMDB_Score=`IMDB Score`)
 Netflix_IMDB$Genre <- gsub('Science fiction','Science',Netflix_IMDB$Genre)
 Netflix_IMDB$Genre <- gsub('Heist film','Heist',Netflix_IMDB$Genre)
 Netflix_IMDB$Genre <- gsub('Family film','Family' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Romance','Romantic' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Sports film','Sports' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Concert film','Concert' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Making-of','MakingOf' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('Coming-of-age','ComingOfAge comedy-drama' ,Netflix_IMDB$Genre)
+Netflix_IMDB$Genre <- gsub('One-man show','OneMan show' ,Netflix_IMDB$Genre)
+Netflix_IMDB <- Netflix_IMDB %>% mutate(
+  CleanGenre = strsplit(as.character(Netflix_IMDB$Genre)," |/|-"),
+  CleanGenre = lapply(CleanGenre, gsub, pattern = " ", replacement = ""),
+  CleanGenre = lapply(CleanGenre, tolower),
+  CleanLanguage = strsplit(as.character(Netflix_IMDB$Language),"/"),
+  CleanLanguage = lapply(CleanLanguage, gsub, pattern = " ", replacement = "")
+)
 
 Netflix_IMDB$Genre <- as.factor(Netflix_IMDB$Genre)
 
 # 1 
-Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% filter(`IMDB Score` == max(`IMDB Score`)))
+Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(IMDB_Score == max(IMDB_Score)))
 as_tibble(Netflix_maxIMDB)
 
 # 2
-GenreIMDBmean <- data.frame(Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(`IMDB Score`), list(meanIMDB = mean)))
-as_tibble(GenreIMDBmean)
+Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Netflix_IMDB$IMDB_Score))
 
 # 3
-movie_language <- Netflix_IMDB %>% mutate(
-  NFlanguage = strsplit(as.character(Netflix_IMDB$Language),"/"),
-  NFlanguage = lapply(NFlanguage, gsub, pattern = " ", replacement = "")
-)
-
-language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>% 
-  count(NFlanguage)%>% arrange(desc(n)) %>% slice(1:5)
-
-View(language)
-as_tibble(language)
-
-# 4
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
 as_tibble(meanRuntime)
 
-# 5
+# 4
 Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == min(Netflix_IMDB$IMDB_Score)) 
 Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == max(Netflix_IMDB$IMDB_Score))
 distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
-# 6 
-Netflix <- Netflix_IMDB %>% mutate(
-  movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
-  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
-)
-View(Netflix)
+# 5 
+countGenre <- Netflix_IMDB %>% select(CleanGenre) %>% unnest(CleanGenre)%>% 
+  count(CleanGenre)%>% arrange(desc(n)) %>% slice(1:1)
+as_tibble(countGenre)
 
-Netflix2 <- Netflix %>% mutate(
-  NetflixGenre = strsplit(as.character(Netflix$movieGenre),"/"),
-  NetflixGenre = lapply(NetflixGenre, gsub, pattern = " ", replacement = "")
-)
-
-View(Netflix2)
-
-FinalNetflix <- Netflix2 %>% mutate(
-  Netflix_Genre = strsplit(as.character(Netflix2$NetflixGenre),"-"),
-  Netflix_Genre = lapply(Netflix_Genre, gsub, pattern = " ", replacement = ""),
-  Netflix_Genre = lapply(Netflix_Genre, tolower)
-)
-View(FinalNetflix)
-
-FinalNetflix %>% select(Netflix_Genre) %>% unnest(Netflix_Genre)%>% 
-  count(Netflix_Genre)%>% arrange(desc(n))%>% View()
+# 6
+language <- Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
+  count(CleanLanguage)%>% arrange(desc(n)) %>% slice(1:5)
+as_tibble(language)
 
 ##Checkpoint 1
-write.csv(Netflix_IMDB,"C:\\Users\\USER\\Desktop\\008-Netflix-Original-Films-And-IMDB-Scores\\Netflix_IMDB_Clean.csv",row.names=FALSE)
+write.csv(Netflix_IMDB,"C\\Users\\USER\\Desktop\\008-Netflix-Original-Films-And-IMDB-Scores\\Netflix_IMDB_Clean.csv",row.names=FALSE)
