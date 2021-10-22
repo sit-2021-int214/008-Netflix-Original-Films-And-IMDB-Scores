@@ -22,7 +22,7 @@ Netflix_IMDB$Genre <- gsub('Concert film','Concert' ,Netflix_IMDB$Genre)
 Netflix_IMDB$Genre <- gsub('Making-of','MakingOf' ,Netflix_IMDB$Genre)
 Netflix_IMDB$Genre <- gsub('Coming-of-age','ComingOfAge comedy-drama' ,Netflix_IMDB$Genre)
 Netflix_IMDB$Genre <- gsub('One-man show','OneMan show' ,Netflix_IMDB$Genre)
-Netflix_IMDB <- Netflix_IMDB %>% mutate(
+Clean_Netflix_IMDB <- Netflix_IMDB %>% mutate(
   CleanGenre = strsplit(as.character(Netflix_IMDB$Genre)," |/|-"),
   CleanGenre = lapply(CleanGenre, gsub, pattern = " ", replacement = ""),
   CleanGenre = lapply(CleanGenre, tolower),
@@ -37,7 +37,7 @@ Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% select(Title,IMDB_Score) %>% filt
 as_tibble(Netflix_maxIMDB)
 
 # 2
-Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Netflix_IMDB$IMDB_Score))
+Clean_Netflix_IMDB %>% select(CleanGenre) %>% filter(CleanGenre == "documentary") %>% summarise(mean(Clean_Netflix_IMDB$IMDB_Score))
 
 # 3
 meanRuntime <- data.frame(Netflix_IMDB$Runtime %>% mean())
@@ -50,14 +50,14 @@ distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
 # 5 
-countGenre <- Netflix_IMDB %>% select(CleanGenre) %>% unnest(CleanGenre)%>% 
+countGenre <- Clean_Netflix_IMDB %>% select(CleanGenre) %>% unnest(CleanGenre)%>% 
   count(CleanGenre)%>% arrange(desc(n)) %>% slice(1:1)
 as_tibble(countGenre)
 
 # 6
-language <- Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
+language <- Clean_Netflix_IMDB %>% select(CleanLanguage) %>% unnest(CleanLanguage)%>% 
   count(CleanLanguage)%>% arrange(desc(n)) %>% slice(1:5)
 as_tibble(language)
 
 ##Checkpoint 1
-write.csv(Netflix_IMDB,"C\\Users\\USER\\Desktop\\008-Netflix-Original-Films-And-IMDB-Scores\\Netflix_IMDB_Clean.csv",row.names=FALSE)
+write.csv(Netflix_IMDB,"Netflix_IMDB_Clean.csv",row.names=FALSE)
