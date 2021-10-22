@@ -48,7 +48,10 @@ product name,
 sales
 ```
 
-> glimpse(superstore)
+ใข้ glimps() เพื่อดูข้อมูลทั้งหมดและชนิดของข้อมูลนั้น
+```
+glimpse(superstore)
+```
 
 Output :
 ```
