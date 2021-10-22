@@ -26,8 +26,15 @@ Netflix_maxIMDB <- data.frame(Netflix_IMDB %>% filter(`IMDB Score` == max(`IMDB 
 as_tibble(Netflix_maxIMDB)
 
 # 2
-GenreIMDBmean <- data.frame(Netflix_IMDB %>% group_by(Genre) %>% summarise_at(vars(`IMDB Score`), list(meanIMDB = mean)))
-as_tibble(GenreIMDBmean)
+GenreIMDBmean <- Netflix_IMDB %>% mutate(
+  lan = strsplit(as.character(Netflix_IMDB$Language),"/"),
+  lan = lapply(lan, gsub, pattern = " ", replacement = "")
+)
+
+language <- GenreIMDBmean %>% select(lan) %>% unnest(lan)%>% 
+  count(lan)%>% arrange(desc(n))
+
+View(language)
 
 # 3
 movie_language <- data.frame(Netflix_IMDB %>%count(Language))
@@ -43,10 +50,10 @@ Netflix_IMDB %>% select(Title,IMDB_Score) %>% filter(Netflix_IMDB$IMDB_Score == 
 distanceneIMDB <- max(Netflix_IMDB$IMDB_Score)-min(Netflix_IMDB$IMDB_Score)
 as_tibble(distanceneIMDB)
 
-# 6
+# 6 
 Netflix <- Netflix_IMDB %>% mutate(
   movieGenre = strsplit(as.character(Netflix_IMDB$Genre)," "),
-  movieGenre = lapply(movieGenre, gsub, pattern = " ", replacement = "")
+  movieGenre = lapply(movieGenre, gsub, pattern = "-", replacement = "/")
 )
 View(Netflix)
 
