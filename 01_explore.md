@@ -93,23 +93,29 @@ Result
 หนังของแต่ละภาษามีกี่เรื่อง
 
 ```R
-movie_language <- Netflix_IMDB %>%count(Language) 
+movie_language <- Netflix_IMDB %>% mutate(
+  NFlanguage = strsplit(as.character(Netflix_IMDB$Language),"/"),
+  NFlanguage = lapply(NFlanguage, gsub, pattern = " ", replacement = "")
+)
+
+language <- movie_language %>% select(NFlanguage) %>% unnest(NFlanguage)%>% 
+  count(NFlanguage)%>% arrange(desc(n))
 ```
 Result
 ```
-   Language             n
-   <chr>            <int>
- 1 Bengali              1
- 2 Dutch                3
- 3 English            401
- 4 English/Akan         1
- 5 English/Arabic       1
- 6 English/Hindi        2
- 7 English/Japanese     2
- 8 English/Korean       1
- 9 English/Mandarin     2
-10 English/Russian      1
-# ... with 28 more rows
+   NFlanguage     n
+   <chr>      <int>
+ 1 English      422
+ 2 Spanish       39
+ 3 Hindi         35
+ 4 French        21
+ 5 Italian       14
+ 6 Portuguese    12
+ 7 Indonesian     9
+ 8 Japanese       8
+ 9 Korean         7
+10 German         5
+# ... with 22 more rows
 ```
 
 ## 4.
