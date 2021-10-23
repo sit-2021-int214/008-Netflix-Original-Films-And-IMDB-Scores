@@ -2,58 +2,92 @@
 
 **Created by Tarathep Siripis (ID: 63130500055)**
 
-_**Choose**_ Dataset:
-Top 270 Computer Science / Programing Books (Data from Thomas Konstantin, [Kaggle](https://www.kaggle.com/thomaskonstantin/top-270-rated-computer-science-programing-books)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/prog_book.csv)
+## Dataset
+Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/rohitsahoo/sales-forecasting)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv)
 
+### _Context_
+>Retail dataset of a global superstore for 4 years.
+Perform EDA and Predict the sales of the next 7 days from the last date of the Training dataset!
 
+### _Content_
+>Time series analysis deals with time series based data to extract patterns for predictions and other characteristics of the data. It uses a model for forecasting future values in a small time frame based on previous observations. It is widely used for non-stationary data, such as economic data, weather data, stock prices, and retail sales forecasting.
+
+### _Dataset_
+>The dataset is easy to understand and is self-explanatory
+
+### _Inspiration_
+>Perform EDA and Predict the sales of the next 7 days from the last date of the Training dataset!
 
 ### Outlines
-1. Explore the dataset
-2. Learning function from Tidyverse
-3. Transform data with dplyr and finding insight the data
-4. Visualization with GGplot2
+* Explore the dataset
+* Learning function from Tidyverse
+* Transform data with dplyr and finding insight the data
+* Visualization with GGplot2
 
 ## Part 1: Explore the dataset
 ### Step 1: เรียกใช้ Library และ Import Dataset
 ```R
-#Library
+# Library
 library(dplyr)
 library(readr)
+library(stringr)
+library(tidyr)
+library(assertive)
 library(ggplot2)
 
-#Dataset
-top_book <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/prog_book.csv")
+# Dataset
+superstore_sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv");
 ```
 ### Step 2: ดูข้อมูลใน dataset
 ```R
 #ViewDataset
-glimpse(top_book)
-summary(top_book)
+glimpse(superstore_sales)
 ```
 Result:
 ```
-> glimpse(top_book)
-Rows: 271
-Columns: 7
-$ Rating          <dbl> 4.17, 4.01, 3.33, 3.97, 4.06, 3.84, 4.09, 4.15, 3.87, 4.62, 4.03, 3.78, 3.73, 3.87, 3.87, 3.95, 3.85, 3.94, 3.75, 4.10, 4.22, 3.71, 4.21, 4.2~
-$ Reviews         <dbl> 3829, 1406, 0, 1658, 1325, 117, 5938, 1817, 2093, 0, 160, 481, 33, 1255, 593, 417, 80, 279, 370, 2092, 27, 676, 16, 1268, 0, 19, 491, 48, 1, ~
-$ Book_title      <chr> "The Elements of Style", "The Information: A History, a Theory, a Flood", "Responsive Web Design Overview For Beginners", "Ghost in the Wires~
-$ Description     <chr> "This style manual offers practical advice on improving writing skills. Throughout, the emphasis is on promoting a plain English style. This ~
-$ Number_Of_Pages <dbl> 105, 527, 50, 393, 305, 288, 256, 368, 259, 128, 352, 352, 200, 328, 240, 288, 392, 304, 336, 542, 192, 242, 224, 412, 318, 432, 336, 320, 28~
-$ Type            <chr> "Hardcover", "Hardcover", "Kindle Edition", "Hardcover", "Kindle Edition", "Paperback", "Hardcover", "Hardcover", "Hardcover", "Paperback", "~
-$ Price           <dbl> 9.323529, 11.000000, 11.267647, 12.873529, 13.164706, 14.188235, 14.232353, 14.364706, 14.502941, 14.641176, 15.229412, 15.229412, 15.326471,~
+Rows: 9,800
+Columns: 18
+$ `Row ID`        <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, ~
+$ `Order ID`      <chr> "CA-2017-152156", "CA-2017-152156", "CA-2017-138688", "US-2016-108966", "US-2016-108966", "CA-2~
+$ `Order Date`    <chr> "08/11/2017", "08/11/2017", "12/06/2017", "11/10/2016", "11/10/2016", "09/06/2015", "09/06/2015~
+$ `Ship Date`     <chr> "11/11/2017", "11/11/2017", "16/06/2017", "18/10/2016", "18/10/2016", "14/06/2015", "14/06/2015~
+$ `Ship Mode`     <chr> "Second Class", "Second Class", "Second Class", "Standard Class", "Standard Class", "Standard C~
+$ `Customer ID`   <chr> "CG-12520", "CG-12520", "DV-13045", "SO-20335", "SO-20335", "BH-11710", "BH-11710", "BH-11710",~
+$ `Customer Name` <chr> "Claire Gute", "Claire Gute", "Darrin Van Huff", "Sean O'Donnell", "Sean O'Donnell", "Brosina H~
+$ Segment         <chr> "Consumer", "Consumer", "Corporate", "Consumer", "Consumer", "Consumer", "Consumer", "Consumer"~
+$ Country         <chr> "United States", "United States", "United States", "United States", "United States", "United St~
+$ City            <chr> "Henderson", "Henderson", "Los Angeles", "Fort Lauderdale", "Fort Lauderdale", "Los Angeles", "~
+$ State           <chr> "Kentucky", "Kentucky", "California", "Florida", "Florida", "California", "California", "Califo~
+$ `Postal Code`   <dbl> 42420, 42420, 90036, 33311, 33311, 90032, 90032, 90032, 90032, 90032, 90032, 90032, 28027, 9810~
+$ Region          <chr> "South", "South", "West", "South", "South", "West", "West", "West", "West", "West", "West", "We~
+$ `Product ID`    <chr> "FUR-BO-10001798", "FUR-CH-10000454", "OFF-LA-10000240", "FUR-TA-10000577", "OFF-ST-10000760", ~
+$ Category        <chr> "Furniture", "Furniture", "Office Supplies", "Furniture", "Office Supplies", "Furniture", "Offi~
+$ `Sub-Category`  <chr> "Bookcases", "Chairs", "Labels", "Tables", "Storage", "Furnishings", "Art", "Phones", "Binders"~
+$ `Product Name`  <chr> "Bush Somerset Collection Bookcase", "Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Ba~
+$ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7.2800, 907.1520, 18.5040, 114.9000, 1~
 ```
-```
-> summary(top_book)
-     Rating         Reviews        Book_title        Description        Number_Of_Pages      Type               Price        
- Min.   :3.000   Min.   :   0.0   Length:271         Length:271         Min.   :  50.0   Length:271         Min.   :  9.324  
- 1st Qu.:3.915   1st Qu.:   5.5   Class :character   Class :character   1st Qu.: 289.0   Class :character   1st Qu.: 30.751  
- Median :4.100   Median :  35.0   Mode  :character   Mode  :character   Median : 384.0   Mode  :character   Median : 46.318  
- Mean   :4.067   Mean   : 185.6                                         Mean   : 475.1                      Mean   : 54.542  
- 3rd Qu.:4.250   3rd Qu.: 116.5                                         3rd Qu.: 572.5                      3rd Qu.: 67.854  
- Max.   :5.000   Max.   :5938.0                                         Max.   :3168.0                      Max.   :235.650  
-```
+>จากผลลัพธ์ด้านบนจะเห็นได้ว่ามีข้อมูลทั้งหมด 9800 ข้อมูล และตัวแปรทั้งหมด 18 ตัว ซึ่งแต่ละตัวแปรมีความหมาย ดังนี้
 
+| _No._ | _Columns_        | _Type_     | _Explanation_  |
+|:-|:-|:-|:-|
+|  1  | Row ID         | numeric  | ลำดับของข้อมูล |
+|  2  | Order ID       | character| ID ของออเดอร์ |
+|  3  | Order Date     | character| วันที่สั่งสินค้า |
+|  4  | Ship Date      | character| วันที่จัดส่ง |
+|  5  | Ship mode      | character| รูปแบบการจัดส่ง |
+|  6  | Customer ID    | character| ID ของลูกค้า |
+|  7  | Customer Name  | character| ชื่อของลูกค้า |
+|  8  | Segment        | character| ประเภทของลูกค้า |
+|  9  | Country        | character| ประเทศที่ลูกค้าต้องการจัดส่ง |
+|  10  | City          | character| เมืองที่ลูกค้าต้องการจัดส่ง |
+|  11  | State         | character| รัฐที่ลูกค้าต้องการจัดส่ง  |
+|  12  | Postal Code   | numeric  | รหัสไปรษณีย์ที่ลูกค้าต้องการจัดส่ง |
+|  13  | Region        | character| ภูมิภาคที่ลูกค้าต้องการจัดส่ง |
+|  14  | Product ID    | character| ID ของสินค้า |
+|  15  | Category      | character| หมวดหมู่ของสินค้า |
+|  16  | Sub Category  | character| หมวดหมู่ย่อยของสินค้า |
+|  17  | Product Name  | character| ชื่อสินค้า |
+|  18  | Sales         | numeric  | ราคาของสินค้า |
 
 ## Part 2: Learning function from Tidyverse
 
