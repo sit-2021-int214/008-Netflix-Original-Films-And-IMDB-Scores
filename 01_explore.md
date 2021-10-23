@@ -115,6 +115,7 @@ Result :
                             <dbl>
 1                            93.6
 ```
+ค่าเฉลี่ย Runtime ของ Netflix Original Films ทั้งหมดคือ 93.6 นาที
 
 ## Question 4
 คะแนน IMDB ของ Netflix Original Films ที่มากที่สุด ห่างจาก คะแนนที่น้อยที่สุดอยู่เท่าไหร่
