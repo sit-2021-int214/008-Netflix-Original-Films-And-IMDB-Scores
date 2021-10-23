@@ -66,7 +66,7 @@ $ `Sub-Category`  <chr> "Bookcases", "Chairs", "Labels", "Tables", "Storage", "F
 $ `Product Name`  <chr> "Bush Somerset Collection Bookcase", "Hon Deluxe Fabric Upholstered Stacking Chairs, Rounded Ba~
 $ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7.2800, 907.1520, 18.5040, 114.9000, 1~
 ```
->จากผลลัพธ์ด้านบนจะเห็นได้ว่ามีข้อมูลทั้งหมด 9800 ข้อมูล และตัวแปรทั้งหมด 18 ตัว ซึ่งแต่ละตัวแปรมีความหมาย ดังนี้
+>จากผลลัพธ์ด้านบนจะเห็นได้ว่ามีข้อมูลทั้งหมด 9800 ข้อมูล และตัวแปรทั้งหมด 18 ตัว แต่ละตัวแปรมีประเภทและความหมาย ดังนี้
 
 | _No._ | _Columns_        | _Type_     | _Explanation_  |
 |:-|:-|:-|:-|
