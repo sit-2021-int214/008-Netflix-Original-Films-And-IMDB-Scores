@@ -75,7 +75,7 @@ Result :
                                      Title IMDB_Score
 1 David Attenborough: A Life on Our Planet          9
 ```
-Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุุด คือเรื่อง David Attenborough: A Life on Our Planet ซึ่งมีคะแนนใน IMDB สูงถึง 9 คะแนน 
+Netflix Original Films ที่มีจำนวนคะแนนใน IMDB มากที่สุด คือเรื่อง David Attenborough: A Life on Our Planet ซึ่งมีคะแนนใน IMDB สูงถึง 9 คะแนน 
 
 ## Question 2
 
