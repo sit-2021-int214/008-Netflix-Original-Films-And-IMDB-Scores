@@ -36,7 +36,7 @@ Netflix เป็น Platform ดูหนังที่มีจำนวน�
 ## Table of Contents
 
 1. [Exploratory Data Analysis](./01_explore.md)
-2. [Data Visualization](./#)
+2. [Data Visualization](./Netflix_IMDB_Clean.csv)
 
 ## Resources
 
