@@ -88,19 +88,18 @@ starwars %>% select(name,height)
 
 ## Step 3: Using ggplot2 to create 2 graphs and explain each graph.
 
-1.ยอดขายรวมของแต่ละ city ที่มียอดขายรวมมากกว่า 10000 โดยเรียงยอดขายรวมจากมากไปน้อย
+1. แสดงยอดขายรวมทั้งหมดของแต่ละ city ที่มียอดขายรวมทั้งหมดมากกว่า 50000 โดยเรียงยอดขายรวมทั้งหมดจากมากไปน้อย
 ```
-citysum <- superstore %>% 
+superstore %>% 
   group_by(City) %>% 
   summarise(totalsales = sum(Sales)) %>%
   filter(totalsales > 50000) %>%
   arrange(desc(totalsales))
   
-citysum 
+
 ```
 
 Result:
-
 ```
   City          totalsales
   <chr>              <dbl>
@@ -111,6 +110,84 @@ Result:
 5 Philadelphia     108842.
 6 Houston           63956.
 ```
+ยอดขายรวมทั้งหมดของแต่ละ city ที่มียอดขายรวมทั้งหมดมากกว่า 50000 มีทั้งหมด 6 เมือง ดังนี้
+1 New York City    252463.
+2 Los Angeles      173420.
+3 Seattle          116106.
+4 San Francisco    109041.
+5 Philadelphia     108842.
+6 Houston           63956.
+
+2. แสดงรายชื่อสินค้าทั้งหมดที่มีชื่อขึ้นต้นด้วยคำว่า Xerox
+```
+findXerox <- str_subset(superstore$Product.Name, "Xerox");
+as_tibble(findXerox)
+```
+
+Result:
+```
+   value     
+   <chr>     
+ 1 Xerox 1967
+ 2 Xerox 232 
+ 3 Xerox 1943
+ 4 Xerox 1995
+ 5 Xerox 1999
+ 6 Xerox 1921
+ 7 Xerox 1916
+ 8 Xerox 195 
+ 9 Xerox 1880
+10 Xerox 1911
+# ... with 834 more rows
+```
+รายชื่อสินค้าทั้งหมดที่มีชื่อขึ้นต้นด้วยคำว่า Xerox มีทั้งหมด 844 rows
+
+3. แสดงยอดขายรวมทั้งหมดของ Segment ที่เป็น Consumer
+```
+superstore %>%group_by(Segment) %>% summarise(totalsales = sum(Sales)) %>% filter(Segment == "Consumer") 
+```
+Result:
+```
+  Segment  totalsales
+  <chr>         <dbl>
+1 Consumer   1148061.
+```
+ยอดขายรวมทั้งหมดของSegment ที่เป็น Consumer มียอดขายรวมทั้งหมด 1148061 โดยเรียงยอดขายรวมทั้งหมดจากมากไปน้อย
+
+4. แสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category 
+```
+superstore %>% count(Sub.Category) %>% group_by(Sub.Category) %>% rename(totalsales = n) %>%
+  arrange(desc(totalsales))
+```
+
+Result:
+```
+   Sub.Category totalsales
+   <chr>             <int>
+ 1 Binders            1492
+ 2 Paper              1338
+ 3 Furnishings         931
+ 4 Phones              876
+ 5 Storage             832
+ 6 Art                 785
+ 7 Accessories         756
+ 8 Chairs              607
+ 9 Appliances          459
+10 Labels              357
+11 Tables              314
+12 Envelopes           248
+13 Bookcases           226
+14 Fasteners           214
+15 Supplies            184
+16 Machines            115
+17 Copiers              66
+```
+
+5.
+
+
+
+
 
 
 ## Step 4: Using command from tidyverse(forcats)
