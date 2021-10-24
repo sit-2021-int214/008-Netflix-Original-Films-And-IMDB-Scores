@@ -306,3 +306,5 @@ Result:
 ## Part 4: Visualization with GGplot2
 ### 1.) Graph show relation between height and mass
 
+![image](image.png)
+
