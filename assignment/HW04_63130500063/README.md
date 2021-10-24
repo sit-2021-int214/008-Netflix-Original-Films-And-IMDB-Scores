@@ -304,7 +304,24 @@ Result:
 ยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุดคือ 61598.2 
 
 ## Part 4: Visualization with GGplot2
-### 1.) Graph show relation between height and mass
+1. กราฟแสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category 
 
+```
+superstore  %>% ggplot(aes(x = Sub.Category)) + geom_bar(aes(color = Sub.Category))
+```
+Result:
 ![image](image.png)
 
+จากกราฟนี้จะแสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category ซึ่งจะทำให้ทราบจำนวนยอดขายรวมทั้งหมดในแต่ละ sub-category ได้จากกราฟนี้ และทำให้เราสามารถสังเกตข้อมูลต่างๆได้ง่ายมากขึ้น 
+
+
+2. กราฟแสดงความสัมพันธ์ระหว่าง Sales และ Category
+```
+scat_plot <- superstore %>% ggplot(aes(x=Category,y=Sales)) + geom_point(aes(color= Category))
+scat_plot
+scat_plot+geom_smooth()
+```
+Result:
+![image](image2.png)
+```
+จากกราฟนี้จะแสดงความสัมพันธ์ระหว่าง Sales และ Category 
