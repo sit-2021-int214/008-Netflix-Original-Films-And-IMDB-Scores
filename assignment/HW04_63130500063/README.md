@@ -299,9 +299,9 @@ Result:
 > different
 [1] 61598.2
 ```
-สินค้าที่ทำยอดขายได้มากที่สุด Canon imageCLASS 2200 Advanced Copier ซึ่งทำยอดขายได้ทั้งหมด 61600 และ
-สินค้าที่ทำยอดขายได้น้อยที่สุด Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac  ซึ่งทำยอดขายได้ทั้งหมด 1.62
-ยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุดคือ 61598.2
+สินค้าที่ทำยอดขายได้มากที่สุด Canon imageCLASS 2200 Advanced Copier ซึ่งทำยอดขายได้ทั้งหมด 61600 และ <br>
+สินค้าที่ทำยอดขายได้น้อยที่สุด Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac  ซึ่งทำยอดขายได้ทั้งหมด 1.62 <br>
+ยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุดคือ 61598.2 <br>
 
 ## Step 4: Using command from tidyverse(forcats)
 ### 1.) Graph show relation between height and mass
