@@ -80,11 +80,57 @@ Product Name = ชื่อสินค้า
 Sales = ราคาของสินค้า    
 
 ## Step 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
+- Function group_by() from package [dplyr](https://dplyr.tidyverse.org/articles/grouping.html?q=group%20_#group_by). : ทำการจัดกลุ่มข้อมูล
+```
+superstore %>% group_by(City) %>% 
+  summarise(totalsales = sum(Sales))
+```
+Result:
+```
+   City        totalsales
+   <chr>            <dbl>
+ 1 Aberdeen         25.5 
+ 2 Abilene           1.39
+ 3 Akron          2724.  
+ 4 Albuquerque    2220.  
+ 5 Alexandria     5520.  
+ 6 Allen           290.  
+ 7 Allentown       853.  
+ 8 Altoona          20.5 
+ 9 Amarillo       3773.  
+10 Anaheim        5601.  
+# ... with 519 more rows
+```
 
-- Function select() from package [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html#select-columns-with-select)). It using for select columns
+- Function `arrange()` from package [dplyr](https://dplyr.tidyverse.org/reference/arrange.html). : เรียงข้อมูลจากน้อยไปมากตามคอลัมน์ที่กำหนด
+```
+superstore %>% count(Sub.Category) %>% group_by(Sub.Category) %>% rename(totalsales = n) %>%
+arrange(totalsales)
+```
+Result:
+```
+   Sub.Category totalsales
+   <chr>             <int>
+ 1 Copiers              66
+ 2 Machines            115
+ 3 Supplies            184
+ 4 Fasteners           214
+ 5 Bookcases           226
+ 6 Envelopes           248
+ 7 Tables              314
+ 8 Labels              357
+ 9 Appliances          459
+10 Chairs              607
+11 Accessories         756
+12 Art                 785
+13 Storage             832
+14 Phones              876
+15 Furnishings         931
+16 Paper              1338
+17 Binders            1492
+```
 
-starwars %>% select(name,height)
-** You can sepearate this part or combine in part of Transform data with dplyr and finding insight the data
+
 
 ## Step 3: Using ggplot2 to create 2 graphs and explain each graph.
 
@@ -95,8 +141,6 @@ superstore %>%
   summarise(totalsales = sum(Sales)) %>%
   filter(totalsales > 50000) %>%
   arrange(desc(totalsales))
-  
-
 ```
 
 Result:
