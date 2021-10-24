@@ -152,9 +152,9 @@ Result:
   <chr>         <dbl>
 1 Consumer   1148061.
 ```
-ยอดขายรวมทั้งหมดของSegment ที่เป็น Consumer มียอดขายรวมทั้งหมด 1148061 โดยเรียงยอดขายรวมทั้งหมดจากมากไปน้อย
+ยอดขายรวมทั้งหมดของSegment ที่เป็น Consumer มียอดขายรวมทั้งหมด 1148061 
 
-4. แสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category 
+4. แสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category โดยเรียงยอดขายรวมทั้งหมดจากมากไปน้อย
 ```
 superstore %>% count(Sub.Category) %>% group_by(Sub.Category) %>% rename(totalsales = n) %>%
   arrange(desc(totalsales))
@@ -182,13 +182,82 @@ Result:
 16 Machines            115
 17 Copiers              66
 ```
-
-5.
-
+ยอดขายรวมทั้งหมดของแต่ละ Sub Category ซึ่งมี Sub Category ทั้งหมด 17 rows
 
 
+5. แสดงจำนวนการซื้อทั้งหมดของ Customer แต่ละคน โดยเรียงจำนวนการซื้อทั้งหมดจากมากไปน้อย
+```
+totalSalesCus <- superstore %>% select(Customer.Name) %>% count(Customer.Name) %>% 
+                    arrange(desc(n)) %>%  rename(totalbuy = n);
 
+as_tibble(totalSalesCus);
+```
 
+Result:
+```
+   Customer.Name       totalsales
+   <chr>                    <int>
+ 1 William Brown               35
+ 2 Matt Abelman                34
+ 3 Paul Prost                  34
+ 4 John Lee                    33
+ 5 Chloris Kastensmidt         32
+ 6 Jonathan Doherty            32
+ 7 Seth Vernon                 32
+ 8 Arthur Prichep              31
+ 9 Emily Phan                  31
+10 Zuschuss Carroll            31
+# ... with 783 more rows
+```
+จำนวนการซื้อทั้งหมดของ Customer แต่ละคน ซึ่งเรียงจากมากไปน้อย ซึ่งมีทั้งหมด 793 rows
+
+6. แสดงสินค้าที่ทำยอดขายได้มากที่สุดและน้อยที่สุด รวมทั้งยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุด
+
+หาสินค้าที่ทำยอดขายได้มากที่สุด
+```
+maxSale <- superstore %>% 
+  group_by(Product.Name) %>% 
+  summarise(totalsale = sum(Sales)) %>%
+  filter(totalsale == max(totalsale))
+```
+หาสินค้าที่ทำยอดขายได้น้อยที่สุด
+```
+minSale <- superstore %>% 
+  group_by(Product.Name) %>% 
+  summarise(totalsale = sum(Sales)) %>%
+  filter(totalsale == min(totalsale))
+```
+หายอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุด
+```
+different <- (maxSale$totalsale) -(minSale$totalsale)
+```
+แสดงสินค้าที่ทำยอดขายได้มากที่สุดและน้อยที่สุด รวมทั้งยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุด
+```
+maxSale
+minSale
+different
+```
+
+Result:
+```
+> maxSale
+# A tibble: 1 x 2
+  Product.Name                          totalsale
+  <chr>                                     <dbl>
+1 Canon imageCLASS 2200 Advanced Copier    61600.
+
+> minSale
+# A tibble: 1 x 2
+  Product.Name                                                     totalsale
+  <chr>                                                                <dbl>
+1 Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac      1.62
+
+> different
+[1] 61598.2
+```
+สินค้าที่ทำยอดขายได้มากที่สุด Canon imageCLASS 2200 Advanced Copier ซึ่งทำยอดขายได้ทั้งหมด 61600 และ
+สินค้าที่ทำยอดขายได้น้อยที่สุด Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac  ซึ่งทำยอดขายได้ทั้งหมด 1.62
+ยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุดคือ 61598.2
 
 ## Step 4: Using command from tidyverse(forcats)
 ### 1.) Graph show relation between height and mass
