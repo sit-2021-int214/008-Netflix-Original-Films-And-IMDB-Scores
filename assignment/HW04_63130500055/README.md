@@ -34,6 +34,7 @@ library(stringr)
 library(tidyr)
 library(assertive)
 library(ggplot2)
+library(DescTools)
 
 # Dataset
 superstore_sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv");
@@ -90,32 +91,139 @@ $ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600,
 |  18  | Sales         | numeric  | ราคาของสินค้า |
 
 ## Part 2: Learning function from Tidyverse
-
-- 
-```
-
+- Function select() from package dplyr. It using for select columns
+```R
+superstore_sales %>% select(`Customer ID`,`Customer Name`,City) %>% filter(City == "New York City")
 ```
 
 ## Part 3: Transform data with dplyr and finding insight the data
 
+### 1. ปีที่มีการขายได้มากที่สุด
+```R
+superstore_sales$`Order Date` <- as.Date(as.character(superstore_sales$`Order Date`),"%d/%m/%Y")
+class(superstore_sales$`Order Date`)
+superstore_sales$Year <- format(superstore_sales$`Order Date`, "%Y") 
 
+superstore_sales %>% select(Year) %>% count(Year) %>% slice_max(Year)
 ```
-
-```
-
 Result:
+```
+  Year      n
+  <chr> <int>
+1 2018   3258
+```
+#### Explain 
+>ปี 2018 เป็นปีที่มีการขายมากที่สุด และขายได้มากถึง 3258 ออเดอร์
+
+### 2. ลูกค้าที่มียอดซื้อมากที่สุด
+```R
+superstore_sales %>% select(`Customer Name` , Sales) %>% 
+  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+```
+Result:
+```
+  `Customer Name` sumOfSales
+  <chr>                <dbl>
+1 Sean Miller         25043.
+```
+#### Explain 
+>Sean Miller มียอดซื้อถึง 25043 USD. และเป็นลูกค้าที่มียอดซื้อมากที่สุด
+
+### 3. Top3 สินค้าที่ทำรายได้ได้มากที่สุด
+```R
+superstore_sales %>% select(`Product Name` , Sales) %>% 
+  group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% arrange(desc(sumOfSales)) %>% slice(1:3)
+```
+Result:
+```
+  `Product Name`                                                              sumOfSales
+  <chr>                                                                            <dbl>
+1 Canon imageCLASS 2200 Advanced Copier                                           61600.
+2 Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind     27453.
+3 Cisco TelePresence System EX90 Videoconferencing Unit                           22638.
+```
+#### Explain 
+> 3 อันดับ ที่มีรายได้มากที่สุดคือ
+> อันดับที่ 1 Canon imageCLASS 2200 Advanced Copier ทำรายได้ 61600 USD.
+> อันดับที่ 2 Fellowes PB500 Electric Punch Plastic Comb Binding Machine with Manual Bind ทำรายได้ 27453 USD.
+> อันดับที่ 3 Cisco TelePresence System EX90 Videoconferencing Unit ทำรายได้ 22638 USD.
+
+### 4. สินค้าประเภทใดที่มีจำนวนการสั่งซื้อมากที่สุด
+```R
+superstore_sales %>% select(Category) %>% count(Category) %>% slice_max(Category)
+```
+Result:
+```
+  Category       n
+  <chr>      <int>
+1 Technology  1813
+```
+#### Explain 
+> สินค้าประเภท Technology เป็นสินค้าที่การสั่งซื้อมากที่สด และมีการสั่งซื้อมากถึง 1813 ชิ้น
+
+### 5. ประเภทการจัดส่งที่มีจำนวนการจัดส่งน้อยที่สุด และห่างจากประเภทการจัดส่งที่มีจำนวนการจัดส่งมากที่สุดอยู่เท่าไร
+```R
+minShipmode <- superstore_sales %>% select(`Ship Mode`) %>% count(`Ship Mode`) %>% slice_min(`Ship Mode`)
+maxShipmode <- superstore_sales %>% select(`Ship Mode`) %>% count(`Ship Mode`) %>% slice_max(`Ship Mode`)
+maxShipmode$n - minShipmode$n
 
 ```
-
+Result:
 ```
+> as_tibble(minShipmode)
+# A tibble: 1 x 2
+  `Ship Mode`     n
+  <chr>       <int>
+1 First Class  1501
+```
+```
+> as_tibble(maxShipmode)
+# A tibble: 1 x 2
+  `Ship Mode`        n
+  <chr>          <int>
+1 Standard Class  5859
+```
+```
+4358
+```
+#### Explain 
+>ประเภทการจัดส่งที่มีจำนวนการจัดส่งน้อยที่สุดคือ First Class มีจำนวนการจัดส่งอยู่ที่ 1501 ห่างจากประเภทการจัดส่งที่มีจำนวนการจัดส่งมากที่สุด 4358 ครั้ง คือ Standard Class มีจำนวนการจัดส่งอยู่ที่ 5859 ครั้ง
+
+### 6. Top3 เมืองที่มีการสั่งซื้อสินค้ามากที่สุด
+```R
+superstore_sales %>% select(City) %>% count(superstore_sales$City) %>% arrange(desc(n)) %>%  slice(1:3)
+```
+Result:
+```
+  `superstore_sales$City`     n
+  <chr>                   <int>
+1 New York City             891
+2 Los Angeles               728
+3 Philadelphia              532
+```
+#### Explain 
+> อันดับ1 New York City จำนวนการสั่งสินค้า 891 ครั้ง อันดับที่2 Los Angeles มีจำนวนการสั่งสินค้า 728 ครั้ง อันดับที่3 Philadelphia มีจำนวนการจัดส่งสินค้า 532 ครั้ง
 
 ## Part 4: Visualization with GGplot2
+### 1. Graph show relation between Ship Mode and Sales
+```R
+Region_plot <- ggplot(superstore_sales, aes(x= Region)) + geom_bar(); 
 
+Region_plot + ggtitle("Number of Sales Region") +
+  xlab("Region") + ylab("Sales")
 ```
+Result:
+
+![Rplot1](Rplot1.png)
+
+### 2.) Graph show relation between Segment and Sales
+```R
+Category_plot <- ggplot(superstore_sales, aes(x= Category)) + geom_bar(); 
+
+Category_plot + ggtitle("Number of Sales Category") +
+  xlab("Category") + ylab("Sales")
 
 ```
 Result:
 
-````
-
-````
+![Rplot2](Rplot2.png)
