@@ -52,12 +52,10 @@ superstore_sales %>% select(City) %>% count(superstore_sales$City) %>% arrange(d
 #1
 Region_plot <- ggplot(superstore_sales, aes(x= Region)) + geom_bar(); 
 
-Region_plot + ggtitle("Number of Sales Region") +
-  xlab("Region") + ylab("Sales")
+Region_plot + ggtitle("Number of Sales Region") + xlab("Region") + ylab("Sales")
 
 #2
 Category_plot <- ggplot(superstore_sales, aes(x= Category)) + geom_bar(); 
 
-Category_plot + ggtitle("Number of Sales Category") +
-  xlab("Category") + ylab("Sales")
+Category_plot + ggtitle("Number of Sales Category") + xlab("Category") + ylab("Sales")
 
