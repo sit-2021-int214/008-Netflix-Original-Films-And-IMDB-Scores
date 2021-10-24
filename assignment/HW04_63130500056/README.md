@@ -5,6 +5,12 @@
 # Dataset:
 Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/rohitsahoo/sales-forecasting)) >> [Using CSV](https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv)
 
+### Context
+>Retail dataset of a global superstore for 4 years.
+Perform EDA and Predict the sales of the next 7 days from the last date of the Training dataset!
+
+### Content
+>Time series analysis deals with time series based data to extract patterns for predictions and other characteristics of the data. It uses a model for forecasting future values in a small time frame based on previous observations. It is widely used for non-stationary data, such as economic data, weather data, stock prices, and retail sales forecasting.
 
 ### Outlines
 1. Explore the dataset
@@ -14,7 +20,7 @@ Superstore Sales Dataset (Data from Rohit Sahoo,[Kaggle](https://www.kaggle.com/
 
 ## Part 1: Explore the dataset
 
-```
+```R
 # Library
 library(dplyr)
 library(readr)
@@ -27,13 +33,33 @@ library(DescTools)
 # Dataset
 Superstore_Sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv");
 
+#ViewDataset
+glimpse(Superstore_Sales)
 ```
-### Context
->Retail dataset of a global superstore for 4 years.
-Perform EDA and Predict the sales of the next 7 days from the last date of the Training dataset!
-
-### Content
->Time series analysis deals with time series based data to extract patterns for predictions and other characteristics of the data. It uses a model for forecasting future values in a small time frame based on previous observations. It is widely used for non-stationary data, such as economic data, weather data, stock prices, and retail sales forecasting.
+Result:
+```
+Rows: 9,800
+Columns: 18
+$ `Row ID`        <dbl> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1~
+$ `Order ID`      <chr> "CA-2017-152156", "CA-2017-15215~
+$ `Order Date`    <chr> "08/11/2017", "08/11/2017", "12/~
+$ `Ship Date`     <chr> "11/11/2017", "11/11/2017", "16/~
+$ `Ship Mode`     <chr> "Second Class", "Second Class", ~
+$ `Customer ID`   <chr> "CG-12520", "CG-12520", "DV-1304~
+$ `Customer Name` <chr> "Claire Gute", "Claire Gute", "D~
+$ Segment         <chr> "Consumer", "Consumer", "Corpora~
+$ Country         <chr> "United States", "United States"~
+$ City            <chr> "Henderson", "Henderson", "Los A~
+$ State           <chr> "Kentucky", "Kentucky", "Califor~
+$ `Postal Code`   <dbl> 42420, 42420, 90036, 33311, 3331~
+$ Region          <chr> "South", "South", "West", "South~
+$ `Product ID`    <chr> "FUR-BO-10001798", "FUR-CH-10000~
+$ Category        <chr> "Furniture", "Furniture", "Offic~
+$ `Sub-Category`  <chr> "Bookcases", "Chairs", "Labels",~
+$ `Product Name`  <chr> "Bush Somerset Collection Bookca~
+$ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957~
+```
+>Superstore Sales Dataset มีจำนวนข้อมูลทั้งหมด 9800 ข้อมูลและมีตัวแปรทั้งหมด 18 ตัว แต่ละตัวแปรมีชนิดข้อมูลและความหมาย ดังนี้
 
 | No. | Columns        | Type     | Explanation               |
 |:---:|----------------|----------|---------------------------|
@@ -57,11 +83,18 @@ Perform EDA and Predict the sales of the next 7 days from the last date of the T
 |  18  | Sales         | numeric  | ราคาของสินค้า |
 
 
-## Part 2: Transform data with dplyr and finding insight the data
+## Part 2: Learning function from Tidyverse
+- Function slice_max(), slice_min() from package dplyr. It using for select rows with highest or lowest values of a variable.
+```R
+superstore_sales %>% select(`Customer Name` , Sales) %>% 
+  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+```
+
+## Part 3: Transform data with dplyr and finding insight the data
 
 #### 1. หมวดหมู่ย่อยของสินค้าที่ขายได้มากที่สุด 3 อันดับแรก 
 
-```
+```R
 Top3Sub <- Superstore_Sales %>% select(`Sub-Category`) %>% count(`Sub-Category`) %>% arrange(desc(n)) %>% slice(1:3)
 as_tibble(Top3Sub)
 ```
@@ -87,30 +120,32 @@ as_tibble(Top3Sub)
 2. Paper ขายได้จำนวน 1338 ชิ้น
 3. Furnishings ขายได้จำนวน 931 ชิ้น
 
-#### 2. ประเภทของสินค้าที่ขายดีเป็นอันดับหนึ่ง
+#### 2. ลูกค้าที่มียอดซื้อมากที่สุด
 
-```
-Top1Category <- Mode(Superstore_Sales$Category)
-as_tibble(Top1Category);
+```R
+superstore_sales %>% select(`Customer Name` , Sales) %>% 
+  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
 ```
 
 ##### Result:
 
 ```
-value          
-  <chr>          
-1 Office Supplies
-
+  `Customer Name` sumOfSales
+  <chr>                <dbl>
+1 Sean Miller         25043.
 ```
 ##### Explain
 
-* ใช้ Mode เพื่อแสดงประเภทสินค้าที่ถูกซื้อซ้ำเยอะที่สุด
+* select เลือกให้แสดงข้อมูลเฉพาะ Customer Name และ Sales
+* group_by จัดกลุ่มจาก Customer Name
+* summarise เพื่อหาผลรวมของราคาที่ลูกค้าแต่ละคนซื้อ
+* slice_max เพื่อเลือกค่าที่มากที่สุด
 
-ประเภทของสินค้าที่ขายดีเป็นอันดับหนึ่ง คือ Office Supplies
+ลูกค้าที่มียอดซื้อมากที่สุด คือ Sean Miller โดยซื้อไปทั้งหมด 25043 US Dollar
 
 #### 3. ลูกค้าคนใดที่ซื้อสินค้าราคาแพงที่สุด
 
-```
+```R
 highestPrice <- Superstore_Sales %>% select(`Customer Name`,`Product Name`,Sales) %>% 
   filter(Superstore_Sales$Sales == max(Superstore_Sales$Sales));
 as_tibble(highestPrice)
@@ -122,7 +157,6 @@ as_tibble(highestPrice)
 `Customer Name` `Product Name`                                         Sales
   <chr>           <chr>                                                  <dbl>
 1 Sean Miller     Cisco TelePresence System EX90 Videoconferencing Unit 22638.
-
 ```
 ##### Explain
 
@@ -133,14 +167,13 @@ as_tibble(highestPrice)
 
 #### 4. ปีที่มีการสั่งสินค้ามากที่สุด 3 อันดับแรก
 
-```
+```R
 Superstore_Sales$`Order Date` <- as.Date(as.character(Superstore_Sales$`Order Date`),"%d/%m/%Y")
 class(Superstore_Sales$`Order Date`)
 
 Superstore_Sales$OrderYear <- format(Superstore_Sales$`Order Date`, "%Y") 
 Top3OrderYear <- Superstore_Sales %>% select(OrderYear) %>% count(OrderYear) %>% arrange(desc(n)) %>% slice(1:3)
 as_tibble(Top3OrderYear)
-
 ```
 
 ##### Result:
@@ -151,7 +184,6 @@ OrderYear     n
 1 2018       3258
 2 2017       2534
 3 2016       2055
-
 ```
 ##### Explain
 
@@ -165,7 +197,7 @@ OrderYear     n
 
 #### 5. เมืองที่มีการสั่งสินค้ามากที่สุด
 
-```
+```R
 TopCity <- Superstore_Sales %>% select(City) %>% count(City) %>% arrange(desc(n)) %>% slice(1:1)
 as_tibble(TopCity)
 ```
@@ -176,7 +208,6 @@ as_tibble(TopCity)
   City              n
   <chr>         <int>
 1 New York City   891
-
 ```
 ##### Explain
 
@@ -189,7 +220,7 @@ as_tibble(TopCity)
 
 #### 6. ลูกค้า ID "DK-13150" มีการสั่งสินค้ากี่ครั้ง สินค้าชื่ออะไรบ้างและส่งไปที่เมืองใดบ้าง
 
-```
+```R
 CustID_DK13150 <- Superstore_Sales %>% select(`Customer ID`,`Customer Name`, City, `Product Name`) %>% 
   filter(`Customer ID` == "DK-13150")
 as_tibble(CustID_DK13150)
@@ -205,7 +236,6 @@ as_tibble(CustID_DK13150)
 3 DK-13150      David Kendrick  New York City Xerox 1908         
 4 DK-13150      David Kendrick  New York City GBC Premium Transp~
 5 DK-13150      David Kendrick  New York City Xerox 188          
-
 ```
 ##### Explain
 
@@ -225,9 +255,9 @@ as_tibble(CustID_DK13150)
 1. Decatur
 2. New York City
 
-## Part 3: Visualization with GGplot2
+## Part 4: Visualization with GGplot2
 ### 1.) Graph show relation between Ship Mode and Sales
-```
+```R
 ShipMode_plot <- ggplot(Superstore_Sales, aes(x= `Ship Mode`)) + geom_bar(); 
 
 ShipMode_plot + ggtitle("Number of Sales Ship Mode") +
@@ -238,7 +268,7 @@ Result:
 ![Graph 1](Rplot1.png)
 
 ### 2.) Graph show relation between Segment and Sales
-```
+```R
 Segment_plot <- ggplot(Superstore_Sales, aes(x= Segment)) + geom_bar(); 
 
 Segment_plot + ggtitle("Number of Sales Segment") +
