@@ -79,7 +79,7 @@ Sub Category = หมวดหมู่ย่อยของสินค้า
 Product Name = ชื่อสินค้า  
 Sales = ราคาของสินค้า  
 
-## Part 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
+## Part 2: Learning function from Tidyverse
 - Function group_by() from package [dplyr](https://dplyr.tidyverse.org/articles/grouping.html?q=group%20_#group_by). : ทำการจัดกลุ่มข้อมูล
 ```
 superstore %>% group_by(City) %>% 
@@ -132,7 +132,7 @@ Result:
 
 
 
-## Part 3: Using ggplot2 to create 2 graphs and explain each graph.
+## Part 3: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 
 1. แสดงยอดขายรวมทั้งหมดของแต่ละ city ที่มียอดขายรวมทั้งหมดมากกว่า 50000 โดยเรียงยอดขายรวมทั้งหมดจากมากไปน้อย
 ```
@@ -303,7 +303,7 @@ Result:
 สินค้าที่ทำยอดขายได้น้อยที่สุด Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac  ซึ่งทำยอดขายได้ทั้งหมด 1.62 <br>
 ยอดที่แตกต่างกันระหว่างยอดขายที่มากที่สุดและน้อยที่สุดคือ 61598.2 
 
-## Part 4: Visualization with GGplot2
+## Part 4: Using ggplot2 to create 2 graphs and explain each graph.
 1. กราฟแสดงยอดขายรวมทั้งหมดของแต่ละ Sub Category 
 
 ```
