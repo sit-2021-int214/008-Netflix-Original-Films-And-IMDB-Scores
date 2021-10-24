@@ -26,27 +26,7 @@ library(ggplot2)
 
 #dataset
 superstore <- read.csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv")
-View(superstore)
-
-ใน dataset นี้มีข้อมูลดังนี้
-Row ID = ลำดับข้อมูลในdatasetนี้       
-Order ID = IDของออเดอร์       
-Order Date = วันที่ที่ทำการสั่งสิ้นค้า      
-Ship Date = วันที่ที่ทำการจัดส่ง      
-Ship Mode = รูปแบบการขนส่ง      
-Customer ID = IDของลูกค้า     
-Customer Name = ชื่อลูกค้า  
-Segment = บอกประเภทกลุ่มของลูกค้า        
-Country = ประเทศที่ลูกค้าต้องการให้ทำการจัดส่ง        
-City = เมืองที่ลูกค้าต้องการให้ทำการจัดส่ง          
-State = รัฐที่ลูกค้าต้องการให้ทำการจัดส่ง          
-Postal Code = รหัสไปรษณีย์ของที่อยู่นั้นๆ    
-Region = บอกว่าที่อยู่นั้นๆอยู่ในบีิเวณภาคใด      
-Product ID = IDของสินค้า     
-Category = หมวดหมู่ของสินค้า      
-Sub Category = หมวดหมู่ย่อยของสินค้า
-Product Name = ชื่อสินค้า
-Sales = ราคาของสินค้า        
+View(superstore)   
 ```
 
 ใข้ glimps() เพื่อดูข้อมูลทั้งหมดและชนิดของข้อมูลนั้น
@@ -79,6 +59,26 @@ $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7
 ```
 ซึ่งในข้อมูลชุดนี้มี Rows จำนวน 9,800 และColumns จำนวน 18
 
+ใน dataset นี้มีข้อมูลดังนี้
+Row ID = ลำดับข้อมูลในdatasetนี้       
+Order ID = IDของออเดอร์       
+Order Date = วันที่ที่ทำการสั่งสิ้นค้า      
+Ship Date = วันที่ที่ทำการจัดส่ง      
+Ship Mode = รูปแบบการขนส่ง      
+Customer ID = IDของลูกค้า     
+Customer Name = ชื่อลูกค้า  
+Segment = บอกประเภทกลุ่มของลูกค้า        
+Country = ประเทศที่ลูกค้าต้องการให้ทำการจัดส่ง        
+City = เมืองที่ลูกค้าต้องการให้ทำการจัดส่ง          
+State = รัฐที่ลูกค้าต้องการให้ทำการจัดส่ง          
+Postal Code = รหัสไปรษณีย์ของที่อยู่นั้นๆ    
+Region = บอกว่าที่อยู่นั้นๆอยู่ในบีิเวณภาคใด      
+Product ID = IDของสินค้า     
+Category = หมวดหมู่ของสินค้า      
+Sub Category = หมวดหมู่ย่อยของสินค้า
+Product Name = ชื่อสินค้า
+Sales = ราคาของสินค้า    
+
 ## Step 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 
 - Function select() from package [dplyr](https://dplyr.tidyverse.org/articles/dplyr.html#select-columns-with-select)). It using for select columns
@@ -88,17 +88,30 @@ starwars %>% select(name,height)
 
 ## Step 3: Using ggplot2 to create 2 graphs and explain each graph.
 
-//Explain here
-
-#Code here
+1.ยอดขายรวมของแต่ละ city ที่มียอดขายรวมมากกว่า 10000 โดยเรียงยอดขายรวมจากมากไปน้อย
+```
+citysum <- superstore %>% 
+  group_by(City) %>% 
+  summarise(totalsales = sum(Sales)) %>%
+  filter(totalsales > 50000) %>%
+  arrange(desc(totalsales))
+  
+citysum 
+```
 
 Result:
 
-#Copy Result from console to here
-//Explain
+```
+  City          totalsales
+  <chr>              <dbl>
+1 New York City    252463.
+2 Los Angeles      173420.
+3 Seattle          116106.
+4 San Francisco    109041.
+5 Philadelphia     108842.
+6 Houston           63956.
+```
 
-- list 1
-- list 2
 
 ## Step 4: Using command from tidyverse(forcats)
 ### 1.) Graph show relation between height and mass
