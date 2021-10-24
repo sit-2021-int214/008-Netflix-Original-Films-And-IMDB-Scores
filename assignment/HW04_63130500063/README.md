@@ -322,7 +322,6 @@ scat_plot
 scat_plot+geom_smooth()
 ```
 Result:
-```
 ![image2](image2.png)
-```
+
 จากกราฟนี้จะแสดงความสัมพันธ์ระหว่าง Sales และ Category 
