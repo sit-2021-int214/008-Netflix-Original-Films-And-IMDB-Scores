@@ -59,25 +59,25 @@ $ Sales         <dbl> 261.9600, 731.9400, 14.6200, 957.5775, 22.3680, 48.8600, 7
 ```
 ซึ่งในข้อมูลชุดนี้มี Rows จำนวน 9,800 และColumns จำนวน 18
 
-ใน dataset นี้มีข้อมูลดังนี้ <br>
-Row ID = ลำดับข้อมูลในdatasetนี้   <br>    
-Order ID = IDของออเดอร์  <br>      
-Order Date = วันที่ที่ทำการสั่งสิ้นค้า   <br>    
-Ship Date = วันที่ที่ทำการจัดส่ง  <br>    
-Ship Mode = รูปแบบการขนส่ง   <br>   
-Customer ID = IDของลูกค้า    <br> 
-Customer Name = ชื่อลูกค้า  <br>
-Segment = บอกประเภทกลุ่มของลูกค้า   <br>     
-Country = ประเทศที่ลูกค้าต้องการให้ทำการจัดส่ง    <br>    
-City = เมืองที่ลูกค้าต้องการให้ทำการจัดส่ง   <br>       
-State = รัฐที่ลูกค้าต้องการให้ทำการจัดส่ง    <br>      
-Postal Code = รหัสไปรษณีย์ของที่อยู่นั้นๆ    <br>
-Region = บอกว่าที่อยู่นั้นๆอยู่ในบีิเวณภาคใด    <br>  
-Product ID = IDของสินค้า     <br>
-Category = หมวดหมู่ของสินค้า     <br> 
-Sub Category = หมวดหมู่ย่อยของสินค้า  <br>
-Product Name = ชื่อสินค้า  <br>
-Sales = ราคาของสินค้า   <br>  
+ใน dataset นี้มีข้อมูลดังนี้ 
+Row ID = ลำดับข้อมูลในdatasetนี้       
+Order ID = IDของออเดอร์      
+Order Date = วันที่ที่ทำการสั่งสิ้นค้า   
+Ship Date = วันที่ที่ทำการจัดส่ง     
+Ship Mode = รูปแบบการขนส่ง    
+Customer ID = IDของลูกค้า    
+Customer Name = ชื่อลูกค้า  
+Segment = บอกประเภทกลุ่มของลูกค้า    
+Country = ประเทศที่ลูกค้าต้องการให้ทำการจัดส่ง    
+City = เมืองที่ลูกค้าต้องการให้ทำการจัดส่ง         
+State = รัฐที่ลูกค้าต้องการให้ทำการจัดส่ง        
+Postal Code = รหัสไปรษณีย์ของที่อยู่นั้นๆ    
+Region = บอกว่าที่อยู่นั้นๆอยู่ในบีิเวณภาคใด    
+Product ID = IDของสินค้า     
+Category = หมวดหมู่ของสินค้า     
+Sub Category = หมวดหมู่ย่อยของสินค้า 
+Product Name = ชื่อสินค้า  
+Sales = ราคาของสินค้า  
 
 ## Step 2: Transform data with dplyr and finding **insight the data** at least 6 issues. Show your code, result and summary in form of sentence/paragraphs.
 - Function group_by() from package [dplyr](https://dplyr.tidyverse.org/articles/grouping.html?q=group%20_#group_by). : ทำการจัดกลุ่มข้อมูล
