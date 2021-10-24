@@ -11,16 +11,21 @@ library(DescTools)
 # Dataset
 Superstore_Sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv");
 
-View(Superstore_Sales);
+#ViewDataset
+glimpse(Superstore_Sales)
 
-# Part 2+3 : Transform data with dplyr and finding insight the data
+## Part 2: Learning function from Tidyverse
+superstore_sales %>% select(`Customer Name` , Sales) %>% 
+  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+
+# Part 3 : Transform data with dplyr and finding insight the data
 # 1.
-countSub <- Superstore_Sales %>% select(`Sub-Category`) %>% count(`Sub-Category`) %>% arrange(desc(n)) %>% slice(2:3)
-as_tibble(countSub)
+Top3Sub <- Superstore_Sales %>% select(`Sub-Category`) %>% count(`Sub-Category`) %>% arrange(desc(n)) %>% slice(1:3)
+as_tibble(Top3Sub)
 
 # 2.
-Top1Category <- Mode(Superstore_Sales$Category)
-as_tibble(Top1Category);
+Superstore_Sales %>% select(`Customer Name` , Sales) %>% 
+  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
 
 # 3.
 highestPrice <- Superstore_Sales %>% select(`Customer Name`,`Product Name`,Sales) %>% 
@@ -44,7 +49,7 @@ CustID_DK13150 <- Superstore_Sales %>% select(`Customer ID`,`Customer Name`, Cit
   filter(`Customer ID` == "DK-13150")
 as_tibble(CustID_DK13150)
 
-# Part 4
+# Part 4: Visualization with GGplot2
 # 1.Graph show relation between Ship Mode and Sales
 ShipMode_plot <- ggplot(Superstore_Sales, aes(x= `Ship Mode`)) + geom_bar(); 
 
