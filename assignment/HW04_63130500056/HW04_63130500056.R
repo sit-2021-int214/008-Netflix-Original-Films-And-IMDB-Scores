@@ -17,6 +17,9 @@ glimpse(Superstore_Sales)
 Superstore_Sales %>% select(`Product Name` , Sales) %>% 
   group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
 
+Superstore_Sales %>% select(`Product Name` , Sales) %>% 
+  group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_min(sumOfSales)
+
 # Part 3 : Transform data with dplyr and finding insight the data
 # 1.
 Top3Sub <- Superstore_Sales %>% select(`Sub-Category`) %>% count(`Sub-Category`) %>% arrange(desc(n)) %>% slice(1:3)
@@ -40,7 +43,7 @@ Top3OrderYear <- Superstore_Sales %>% select(OrderYear) %>% count(OrderYear) %>%
 as_tibble(Top3OrderYear)
 
 # 5.
-TopCity <- Superstore_Sales %>% select(City) %>% count(City) %>% arrange(desc(n)) %>% slice(1:1)
+TopCity <- Superstore_Sales %>% select(City) %>% count(City) %>% slice_max(n)
 as_tibble(TopCity)
 
 # 6.
