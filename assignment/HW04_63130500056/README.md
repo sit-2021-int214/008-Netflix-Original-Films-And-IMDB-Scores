@@ -84,7 +84,7 @@ $ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957~
 
 
 ## Part 2: Learning function from Tidyverse
-- Function slice_max(), slice_min() from package dplyr. It using for select rows with highest or lowest values of a variable.
+- Function slice_max() from package dplyr. It using for select rows with highest values of a variable.
 ```R
 Superstore_Sales %>% select(`Product Name` , Sales) %>% 
   group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
@@ -96,6 +96,21 @@ Superstore_Sales %>% select(`Product Name` , Sales) %>%
   `Product Name`                        sumOfSales
   <chr>                                      <dbl>
 1 Canon imageCLASS 2200 Advanced Copier     61600.
+```
+
+- Function slice_min() from package dplyr. It using for select rows with lowest values of a variable.
+```R
+  `Product Name`                                                   sumOfSales
+  <chr>                                                                 <dbl>
+1 Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac       1.62
+```
+
+##### Result:
+
+```
+  `Product Name`                                                   sumOfSales
+  <chr>                                                                 <dbl>
+1 Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac       1.62
 ```
 
 ## Part 3: Transform data with dplyr and finding insight the data
@@ -206,7 +221,7 @@ OrderYear     n
 #### 5. เมืองที่มีการสั่งสินค้ามากที่สุด
 
 ```R
-TopCity <- Superstore_Sales %>% select(City) %>% count(City) %>% arrange(desc(n)) %>% slice(1:1)
+TopCity <- Superstore_Sales %>% select(City) %>% count(City) %>% slice_max(n)
 as_tibble(TopCity)
 ```
 
@@ -221,8 +236,7 @@ as_tibble(TopCity)
 
 * select เลือกให้แสดงข้อมูลเฉพาะ City
 * ใช้ count นับจำนวนของ City ที่ถูกสั่งสินค้า
-* ใช้ arrange เพื่อเรียงลำดับจากมากไปน้อย
-* ใช้ slice เลือกข้อมูลแถวที่ 1
+* ใช้ slice_max เพื่อเลือกข้อมูลที่มากที่สุด
 
 เมืองที่มีการสั่งสินค้ามากที่สุดคือ New York City โดยมีการสั่งสินค้า 891 ชิ้น
 
@@ -247,10 +261,8 @@ as_tibble(CustID_DK13150)
 ```
 ##### Explain
 
-* select เลือกให้แสดงข้อมูลเฉพาะ City
-* ใช้ count นับจำนวนของ City ที่ถูกสั่งสินค้า
-* ใช้ arrange เพื่อเรียงลำดับจากมากไปน้อย
-* ใช้ slice เลือกข้อมูลแถวที่ 1
+* select เลือกให้แสดงข้อมูล Customer ID, Customer Name, City และ Product Name
+* filter Customer ID เพื่อหาลูกค้าที่มี ID คือ DK-13150
 
 ลูกค้า ID "DK-13150" มีการสั่งสินค้า 5 ครั้ง โดยมีสินค้าชื่อ 
 * Tenex File Box, Personal Filing Tote with Lid, Black
