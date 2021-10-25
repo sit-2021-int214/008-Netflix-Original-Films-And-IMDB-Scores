@@ -100,9 +100,8 @@ Superstore_Sales %>% select(`Product Name` , Sales) %>%
 
 - Function slice_min() from package dplyr. It using for select rows with lowest values of a variable.
 ```R
-  `Product Name`                                                   sumOfSales
-  <chr>                                                                 <dbl>
-1 Eureka Disposable Bags for Sanitaire Vibra Groomer I Upright Vac       1.62
+Superstore_Sales %>% select(`Product Name` , Sales) %>% 
+  group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_min(sumOfSales)
 ```
 
 ##### Result:
