@@ -86,8 +86,16 @@ $ Sales           <dbl> 261.9600, 731.9400, 14.6200, 957~
 ## Part 2: Learning function from Tidyverse
 - Function slice_max(), slice_min() from package dplyr. It using for select rows with highest or lowest values of a variable.
 ```R
-superstore_sales %>% select(`Customer Name` , Sales) %>% 
-  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+Superstore_Sales %>% select(`Product Name` , Sales) %>% 
+  group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+```
+
+##### Result:
+
+```
+  `Product Name`                        sumOfSales
+  <chr>                                      <dbl>
+1 Canon imageCLASS 2200 Advanced Copier     61600.
 ```
 
 ## Part 3: Transform data with dplyr and finding insight the data
