@@ -6,7 +6,6 @@ library(stringr)
 library(tidyr)
 library(assertive)
 library(ggplot2)
-library(DescTools)
 
 # Dataset
 Superstore_Sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214-Statistics/main/datasets/superstore_sales.csv");
@@ -15,8 +14,8 @@ Superstore_Sales <- read_csv("https://raw.githubusercontent.com/safesit23/INT214
 glimpse(Superstore_Sales)
 
 ## Part 2: Learning function from Tidyverse
-superstore_sales %>% select(`Customer Name` , Sales) %>% 
-  group_by(`Customer Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
+Superstore_Sales %>% select(`Product Name` , Sales) %>% 
+  group_by(`Product Name`) %>% summarise(sumOfSales = sum(Sales)) %>% slice_max(sumOfSales)
 
 # Part 3 : Transform data with dplyr and finding insight the data
 # 1.
