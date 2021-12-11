@@ -34,3 +34,4 @@ if(z<=zalpha){
   print("Accept H0")
 }
 ```
+![image](https://user-images.githubusercontent.com/68818040/145683834-c22cb096-05e6-4985-8beb-70a6c1469ed2.png)
